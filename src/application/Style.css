@@ -1,0 +1,25 @@
+
+.root{
+	-fx-background-color: #f0f8ff;
+	-fx-font-size: 9pt;
+}
+.window{
+	-fx-background-color: #2f4f4f;
+	-fx-font-size: 10pt;
+	-fx-font-weight: bold;
+	-fx-text-fill: #ffffff;
+}
+
+.label {
+	-fx-text-fill: #000000;
+	-fx-font-weight: bold;
+}
+.button {
+	-fx-background-color: #778899;
+	-fx-background-radius: 10;
+	-fx-text-fill: #ffffff;
+}
+#logo {
+    -fx-image: url("UPenn_logo.png");
+}
+

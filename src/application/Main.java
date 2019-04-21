@@ -49,7 +49,7 @@ public void start(Stage primaryStage) throws Exception{
 	GridPane.setConstraints(goToLesson1, 3,6);
 	grid1.getChildren().addAll(title, menu, goToLesson1);
 	scene1 = new Scene(grid1, 500, 300);
-	
+	scene1.getStylesheets().add("Style.css");
 	
 //page 2
 	Button next2 = create.next();
@@ -62,7 +62,7 @@ public void start(Stage primaryStage) throws Exception{
 	layout2.getChildren().addAll(content2, next2, prev2);
 	layout2.setAlignment(Pos.CENTER);
 	scene2 = new Scene(layout2, 500, 300);
-	
+	scene2.getStylesheets().add("Style.css");
 	
 //page 3
 	Button next3 = create.next();
@@ -77,7 +77,7 @@ public void start(Stage primaryStage) throws Exception{
 	layout3.getChildren().addAll(content3_1, content3_2, content3_3, next3, prev3);
 	layout3.setAlignment(Pos.CENTER);
 	scene3 = new Scene(layout3, 500, 300);
-
+	scene3.getStylesheets().add("Style.css");
 	
 //page 4
 	GridPane grid4 = create.setGrid();
@@ -123,7 +123,7 @@ public void start(Stage primaryStage) throws Exception{
 	grid4.getChildren().addAll(questionTitle4, radio1, radio2, radio3, submit4, response4, next4, prev4);
 	grid4.setAlignment(Pos.CENTER);
 	scene4 = new Scene(grid4, 500, 300);
-	
+	scene4.getStylesheets().add("Style.css");
 	
 //page 5
 	Button next5 = create.next();
@@ -138,7 +138,7 @@ public void start(Stage primaryStage) throws Exception{
 	layout5.getChildren().addAll(content5_1, content5_2, content5_3, next5, prev5);
 	layout5.setAlignment(Pos.CENTER);
 	scene5 = new Scene(layout5, 500, 300);
-	
+	scene5.getStylesheets().add("Style.css");
 	
 //page 6
 	GridPane grid6 = create.setGrid();
@@ -183,11 +183,13 @@ public void start(Stage primaryStage) throws Exception{
 	grid6.setPadding(new Insets(20,20,20,20));;
 	grid6.getChildren().addAll(questionTitle6, radio6_1, radio6_2, radio6_3, submit6, response6, main6, prev6);
 	grid6.setAlignment(Pos.CENTER);
-	scene6 = new Scene(grid6, 500, 300);
 	
+	scene6 = new Scene(grid6, 500, 300);
+	scene6.getStylesheets().add("Style.css");
 	
 	window.setScene(scene1);
 	window.setTitle("Jack and Alexandra - Project Name");
+	window.getStyle();
 	window.show();	
 }
 

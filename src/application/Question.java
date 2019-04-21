@@ -17,13 +17,13 @@ private int views, correctedness;
 		
 	}
 public String checkAnswer (String userAnswer) {
-	if (answer.equalsIgnoreCase(userAnswer)) {
+	if (answer.equals(userAnswer)) {
 		correctedness++;
 		return "Awesomesauce!";
 	}
 	else {
 		correctedness--;
-		return "Oh Noes!!! Try again! Ganbatte, Fighting!!! Good Luck!!";
+		return "Oh Noes!!! Try again! Ganbatte! Fighting!!! Buena Suerte! Bon Chance! Good Luck!!";
 	}
 }
 	public String getQuestion() {

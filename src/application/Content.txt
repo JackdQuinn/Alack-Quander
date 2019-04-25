@@ -4,5 +4,5 @@ Basics|Intro|Intro|1|Java gained widespread popularity for being Platform Indepe
 Basics|Intro|Intro|1|Today java is one of the most popular languages in the world with over 9 million developers||||||||
 Basics|Intro|Intro|2|Java runs on more than 3 billion devices.  Java is used to develop apps for Google's Android OS, various Desktop Applications,, Web Applications, Enterprise Applications (i.e. trading, inventory), and many more!||||||||
 Basics|Intro|Intro|2|Learn, practice, and then join the huge community of developers around the world creating the content of the future!||||||||
-Basics|Intro|Intro|3||MC|Bloop|QWR|TOU|BUH|LKH||
+Basics|Intro|Intro|3||MC|To distribute your application to different platforms, how many Java versions do you need to create?|Just one version|Two versions|One for each platform|LKH||
 Basics|Intro|Intro|4||FIB2|Blahhhhh|||||X|Y

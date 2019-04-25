@@ -34,9 +34,6 @@ public class ReaderData {
 		this.FIB2 = FIB2;
 		
 	}
-			
-	
-	
 	
 	public String getTopic() {
 		return topic;
@@ -77,11 +74,5 @@ public class ReaderData {
 	public String getFIB2() {
 		return FIB2;
 	}
-	
-	
-	
-	
-	
-	
-	
+
 }

@@ -16,8 +16,8 @@ public class Question extends TextScribbles {
  * @param wrong3
  * @param lesson
  */
-public Question(String question, String answer, String wrong1, String wrong2, String wrong3, String lesson) {
-		super(lesson);
+public Question(String question, String answer, String wrong1, String wrong2, String wrong3) {
+		super();
 		this.question = question;
 		this.answer = answer;
 		this.wrong1 = wrong1;

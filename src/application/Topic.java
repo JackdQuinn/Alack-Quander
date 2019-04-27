@@ -3,69 +3,61 @@ package application;
 import java.util.ArrayList;
 
 public class Topic {
-	private String lesson;//no memory, what dis?
 	
-	private ArrayList<TextScribbles> text;
-
-
-	/**
-	 * 
-	 * @param question
-	 * @param answer
-	 * @param wrong1
-	 * @param wrong2
-	 * @param wrong3
-	 * @param lesson -- not sure why i put this here
-	 */
-	public void addQuestion(String question, String answer, String wrong1, String wrong2, String wrong3, String lesson) {
-		text.add(new Question(question, answer, wrong1, wrong2, wrong3, lesson));
-		
-	}
 	
-	public void addQuestion(Question q) {
-		text.add(q);
-		
-	}
-	public void addContent(Content c) {
-		text.add(c);
-	}
+	private ArrayList<Lesson> lessons;
+	private String myTopic;
 
-	public Topic(String lesson) {// perhaps a better name might be content I think I got lost by not commenting my code
+	
+	public Topic(String myT) {
 		super();
 		//each Topic is one Java lesson eg Loops, Conditionals, Git etc...
-		this.lesson = lesson;
+		lessons = new ArrayList<Lesson>();
+		myTopic = myT;
+	}
+
 		
-		//each question is one page
-		text = new ArrayList<TextScribbles>();
-		
+		public ArrayList<Lesson> getLessons() {
+		return lessons;
 	}
 
-		public String getLesson() {
-		return lesson;
+
+	public void setLessons(ArrayList<Lesson> lessons) {
+		this.lessons = lessons;
 	}
 
-	public void setLesson(String lesson) {
-		this.lesson = lesson;
+
+	public String getTopic() {
+		return myTopic;
 	}
 
-	public ArrayList<TextScribbles> getText() {
-		return text;
+
+	public void setMyTopic(String myTopic) {
+		this.myTopic = myTopic;
 	}
 
-	public void setText(ArrayList<TextScribbles> text) {
-		this.text = text;
-	}
-	
-	//kill bugs
-	public String toString() {
-		String whatEverYouWannaCallIt="";
-		
-		for (TextScribbles scribbles : text)
+// check to see if lessonText already exists inside lessons, if not create a new
+		// Lesson and add to arraylist
+		public Lesson addLesson(String lessonText) 
 		{
-			whatEverYouWannaCallIt+= scribbles.getLesson();
+		Lesson myLesson;
+		myLesson = new Lesson(lessonText);
+		boolean exists = false;
+		
+		for (Lesson thisLesson : lessons) {
+			if (thisLesson.getLesson().equalsIgnoreCase(lessonText)) {
+				
+				myLesson = thisLesson;
+				exists = true;
+			}
+		}
+
+		
+		if(!exists) {
+		lessons.add(myLesson);
 		}
 		
+		return myLesson;
+}
 		
-		return whatEverYouWannaCallIt;
-	}
 }

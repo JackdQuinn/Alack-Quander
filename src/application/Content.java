@@ -3,8 +3,8 @@ package application;
 public class Content extends TextScribbles{
 	private String text;
 
-	public Content(String lesson, String text) {
-		super(lesson);
+	public Content(String text) {
+		super();
 		this.text = text;
 	}
 	

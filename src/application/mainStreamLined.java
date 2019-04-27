@@ -1,8 +1,9 @@
 package application;
-	
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -28,259 +29,366 @@ import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 
-
 public class mainStreamLined extends Application {
 
-	
 //State variables	
-Stage window;
-Scene beforeScene, afterScene, currentScene, scene1, scene2, scene3, scene4, scene5, scene6;
-createMainButtons create;
-Topic currentTopic;
-int lessonIndex;
-ArrayList<Topic> javaTopics;
+	Stage window;
+	Scene beforeScene, afterScene, currentScene, topicMenu, lessonMenu;
+	createMainButtons create;
 
-
+	int lessonIndex;
+	ArrayList<Topic> javaTopics;
 
 //pull scribbles from a file
-public void setUpQs() {
-	javaTopics = new ArrayList<Topic>();
-	lessonIndex = 0;
-	
-	File file = new File("ContentHash.txt");
+	public void setUpQs() {
+		javaTopics = new ArrayList<Topic>();
+		lessonIndex = -1; // offset for goToChosen topic increment call
 
-	try {
-		Scanner scanner = new Scanner(file);
-		//skip the label row
-		scanner.nextLine();
-		//grab the goods
-		while (scanner.hasNextLine()) {
-	
+		File file = new File("ContentHash.txt");
 
-	
-	//this is where we would read in the data and input here
-	//for pulling as a loop insert that variable instead of "Basics"
-			String row = scanner.nextLine();
-			//System.out.println("row, row, row, your boat"+row);
-			
-			String [] column = row.split("#");
-			String lesson = "";
-			Topic myTopic = new Topic("");
+		try {
+			Scanner scanner = new Scanner(file);
+			// skip the label row
+			scanner.nextLine();
+			// grab the goods
+			while (scanner.hasNextLine()) {
+
+				// this is where we would read in the data and input here
+				// for pulling as a loop insert that variable instead of "Basics"
+				String row = scanner.nextLine();
+				// System.out.println("row, row, row, your boat"+row);
+
+				String[] column = row.split("#");
+
+				Topic myTopic = new Topic("");
+				Lesson myLesson = new Lesson("");
 //			for(String temp: column) {
 //				//System.out.println(temp);
 //			}
-			
+
 //this is to avoid index out of bounds errors
-			//both content and questions share these fields
-			if (column.length >= 4) {
-				
-		//grab the topic from the file.	
-		String topic = column[1];	
-		
-	//check to see if topic already exists inside javaTopics, if not create a new topic and add to arraylist
-	boolean exists = false;
-	for (Topic thisTopic : javaTopics) {
-		if(thisTopic.getLesson().equalsIgnoreCase(topic))
-		{
-			exists = true;
-			myTopic = thisTopic;
-		}
-	}
-	
-	if (exists == false) {
-			myTopic = new Topic(topic);
-	javaTopics.add(myTopic);
-		
-	}
-	
-		
-			
-			String type   		= column[0];
-			String module 		= column[1];
-			lesson 				= column[2];
-			String page 		= column[3];
-			
-			}
-			
-			//content fields
-			if (column[0].trim().equalsIgnoreCase("c") && column.length >=5) {
-				
-			String content		= column[4];
-			//System.out.println(content);
-			Content myContent = new Content(lesson, content);
-			myTopic.addContent(myContent);
-			//System.out.println("c");
-			}
-			else if (column.length >= 11){
-			//question fields
-			String questionType = column[5];
-			String question 	= column[6];
-			//System.out.println(question);
-			String correctAnswer= column[7];
-			String wrongAnswer1 = column[8];
-			String wrongAnswer2 = column [9];
-			String wrongAnswer3 = column[10];
-			
-			Question myQuestion = new Question(question, correctAnswer, wrongAnswer1, wrongAnswer2, wrongAnswer3, lesson);
-			myTopic.addQuestion(myQuestion);
-			}
+				// both content and questions share these fields
+				if (column.length >= 4) {
+
+					// grab the topic from the file.
+					String topic = column[1];
+					String lessonText = column[2];
+					// check to see if topic already exists inside javaTopics, if not create a new
+					// topic and add to arraylist
+					boolean exists = false;
+					for (Topic thisTopic : javaTopics) {
+						if (thisTopic.getTopic().equalsIgnoreCase(topic)) {
+							exists = true;
+							myTopic = thisTopic;
+						}
+					}
+
+					if (exists == false) {
+						myTopic = new Topic(topic);
+						javaTopics.add(myTopic);
+
+					}
+
+					// check to see if lesson already exists inside the Topic Object
+					myLesson = myTopic.addLesson(lessonText.trim());
+
+					String type = column[0];
+					String module = column[1];
+
+					String page = column[3];
+
+				}
+
+				// content fields
+				if (column[0].trim().equalsIgnoreCase("c") && column.length >= 5) {
+
+					String content = column[4];
+					// System.out.println(content);
+					Content myContent = new Content(content);
+					myLesson.addContent(myContent);
+					// System.out.println("c");
+				} else if (column.length >= 11) {
+					// question fields
+					String questionType = column[5];
+					String question = column[6];
+					// System.out.println(question);
+					String correctAnswer = column[7];
+					String wrongAnswer1 = column[8];
+					String wrongAnswer2 = column[9];
+					String wrongAnswer3 = column[10];
+
+					Question myQuestion = new Question(question, correctAnswer, wrongAnswer1, wrongAnswer2,
+							wrongAnswer3);
+					myLesson.addQuestion(myQuestion);
+				}
 //			String FIB1 = column[11];
 //			String FIB2 = column[12];
 
-		}
-			
-		
-		scanner.close();
+			}
+
+			scanner.close();
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
+	@Override
+	public void start(Stage primaryStage) throws Exception {
+		window = primaryStage;
+		create = new createMainButtons();
 
-
-
-@Override
-public void start(Stage primaryStage) throws Exception{
-	window 	= primaryStage;
-	 create = new createMainButtons();
-	
-setUpQs();
+		setUpQs();
 //for (Topic myTopic : javaTopics) {
 //	System.out.println(myTopic);
 //}
 
 //these will become the two paramerters passed to style functions
-Topic currentTopic = javaTopics.get(0);
-TextScribbles currentScribbles = currentTopic.getText().get(0);
-
+		Topic currentTopic = javaTopics.get(0);
+		// TextScribbles currentScribbles = currentTopic.getText().get(0);
 
 //page 1
-	GridPane grid1 = create.setGrid();
-	Label title = new Label("Welcome to Java!");
-	Label menu = new Label("Menu:");
-	GridPane.setConstraints(title,0,0);
-	GridPane.setConstraints(menu,3,5);
-	grid1.getChildren().add(title);
-	grid1.getChildren().add(menu);
-	scene1 = new Scene(grid1, 500, 300);
-	scene1.getStylesheets().add("Style.css");
-	int r = 3; int c = 6;
-	//dynamically add buttons
-	for(Topic temp: javaTopics) {
-		Button goToLesson1 = new Button(temp.getLesson());
-		goToLesson1.setOnAction(e -> goToChosenTopic(temp, scene1)); //brings you to new page
-		GridPane.setConstraints(goToLesson1, r,c);
-	//handle button locations	
-		c++;
-		if(c>10) {
-			c = 6;
-			r++;
+		GridPane grid1 = create.setGrid();
+		Label title = new Label("Welcome to Java!");
+		Label menu = new Label("Menu:");
+		GridPane.setConstraints(title, 0, 0);
+		GridPane.setConstraints(menu, 3, 5);
+		grid1.getChildren().add(title);
+		grid1.getChildren().add(menu);
+		topicMenu = new Scene(grid1, 500, 300);
+		topicMenu.getStylesheets().add("Style.css");
+		int r = 3;
+		int c = 6;
+		// dynamically add buttons
+		lessonIndex = 0;
+		for (Topic temp : javaTopics) {
+			Button btnTopic = new Button(temp.getTopic());
+			btnTopic.setOnAction(e -> goToLessons(primaryStage, temp)); // brings you to new page
+			GridPane.setConstraints(btnTopic, r, c);
+			// handle button locations
+			c++;
+			if (c > 10) {
+				c = 6;
+				r++;
+			}
+			grid1.getChildren().add(btnTopic);
 		}
-		grid1.getChildren().add(goToLesson1);
+
+		window.setScene(topicMenu);
+		window.setTitle("Alack Quander's - 591 Study Guide");
+		window.getStyle();
+		window.show();
 	}
-	
-	
-	
-	
-	
-	
 
-	
-	//page 2
-//	beforeScene = scene1;
-//	afterScene = scene3;
-//beforeScene = contentPage(1,beforeScene, afterScene, "Java is a general-purpose computer-programming language originally developed by  James Gosling at Sun Microsystems and released in 1995.");
-//afterScene = scene4;
-//beforeScene = contentPage(2,beforeScene, afterScene, "Java gained widespread popularity for being Platform Independent, which means that you only need to write the program once to be able to run it on a number of different platforms! \n Today java is one of the most popular languages in the world with over 9 million developers. \n Java intends to let application developers \\\"write once, run anywhere\\\"");
-	
-////page 3
-//	Button next3 = create.next();
-//	Button prev3 = create.prev();
-//	Label content3_1 = create.content();
-//	Label content3_2 = create.content("");
-//	Label content3_3 = create.content("");
-//	next3.setOnAction(e -> window.setScene(scene4)); 
-//	prev3.setOnAction(e -> window.setScene(scene2)); 
-//	VBox layout3 = new VBox(20);
-//	layout3.setPadding(new Insets(20,20,20,20));
-//	layout3.getChildren().addAll(content3_1, content3_2, content3_3, next3, prev3);
-//	layout3.setAlignment(Pos.CENTER);
-//	scene3 = new Scene(layout3, 500, 300);
-//	scene3.getStylesheets().add("Style.css");
-	
+	public void goToLessons(Stage primaryStage, Topic currentTopic) {
+		window = primaryStage;
+		create = new createMainButtons();
 
-	
-
-	
-
-	
-	window.setScene(scene1);
-	window.setTitle("Alack Quander's - 591 Study Guide");
-	window.getStyle();
-	window.show();	
-}
-
-/**
- * 
- * @param myTopic,this is Module eg Basics and from this we derive our lesson data eg content and questions.
- * @param prevScene, should always be the main menu.
- */
-
-public void goToChosenTopic(Topic myTopic, Scene prevScene) {
-	
-	currentTopic = myTopic;
-	lessonIndex = 0;
-	TextScribbles scribbles = myTopic.getText().get(0); //what is this grabbing?
-	
-	//this if/else block should be very similar to what needs to be done to set up the content pages.
-	if(scribbles instanceof Content) {
-		currentScene = contentPage(lessonIndex, prevScene, ((Content)scribbles).getText());
-		window.setScene(currentScene);
-		System.out.println("go go gadget IF");
+		Button prev = create.prev();
+		prev.setOnAction(e -> getToThePreviousScreen(topicMenu));
+		GridPane grid1 = create.setGrid();
+		Label title = new Label("Lesson Menu for " + currentTopic.getTopic());
+		Label menu = new Label("Menu:");
+		GridPane.setConstraints(title, 0, 0);
+		GridPane.setConstraints(menu, 3, 5);
+		GridPane.setConstraints(prev, 0, 18);
+		grid1.getChildren().add(title);
+		grid1.getChildren().add(menu);
+		lessonMenu = new Scene(grid1, 500, 300);
+		lessonMenu.getStylesheets().add("Style.css");
+		int r = 3;
+		int c = 6;
+		// dynamically add buttons
+		lessonIndex = 0;
+		ArrayList<Lesson> lessons = currentTopic.getLessons();
+		for (Lesson temp : lessons) {
+			Button btnLesson = new Button(temp.getLesson());
+			btnLesson.setOnAction(e -> getToTheNextScreen(currentTopic, temp, lessonMenu)); // brings you to new page
+			GridPane.setConstraints(btnLesson, r, c);
+			// handle button locations
+			c++;
+			if (c > 10) {
+				c = 6;
+				r++;
+			}
+			grid1.getChildren().add(btnLesson);
+		}
+		grid1.getChildren().add(prev);
+		window.setScene(lessonMenu);
+		window.setTitle("Alack Quander's - 591 Study Guide");
+		window.getStyle();
+		window.show();
 	}
-	else {
-		currentScene = contentPage(lessonIndex, prevScene, ((Question)scribbles).getQuestion());
-		window.setScene(currentScene);
-		System.out.println("go go gadget Else");
-		
+
+	/**
+	 * 
+	 * @param myTopic,this is Module eg Basics and from this we derive our lesson
+	 *        data eg content and questions.
+	 * @param prevScene, should always be the main menu.
+	 */
+
+	public void getToTheNextScreen(Topic myTopic, Lesson myLesson, Scene prevScene) {
+
+		lessonIndex++; // need to code the set scene back to menu screen if at end of lessons.
+		ArrayList<TextScribbles> contentAndQuestions = myLesson.getText();
+		// see if Lesson has next index
+		if (lessonIndex < contentAndQuestions.size()) {
+
+			TextScribbles scribbles = contentAndQuestions.get(lessonIndex); // what is this grabbing?
+
+			if (scribbles instanceof Content) {
+				currentScene = contentPage(lessonIndex, myTopic, myLesson, prevScene, ((Content) scribbles).getText());
+				window.setScene(currentScene);
+				// System.out.println("go go gadget IF");
+			} else {
+				currentScene = questionPage(lessonIndex, myTopic, myLesson, prevScene, ((Question) scribbles));
+				window.setScene(currentScene);
+				// System.out.println("go go gadget Else");
+
+			}
+
+		}
+		//no next screen in lesson, return to lesson menu
+		else {
+			window.setScene(lessonMenu);
+		}
+
 	}
-	
-	
-}
 
+	public void getToThePreviousScreen(Scene prevScene) {
 
-/**
- * 
- * @param lessonPageIndex----how is this useful?
- * @param prevScene -- the previous scene
- * @param content -- informative text to teach user how to (Java)
- * @return
- */
+		lessonIndex--;
+		window.setScene(prevScene);
+	}
 
+	/**
+	 * 
+	 * @param           lessonPageIndex----how is this useful?
+	 * @param prevScene -- the previous scene
+	 * @param content   -- informative text to teach user how to (Java)
+	 * @return
+	 */
 
-public Scene contentPage(int lessonPageIndex,Scene prevScene, String content)// do I need to change from content to text?
-{
+	public Scene contentPage(int lessonPageIndex, Topic myTopic, Lesson myLesson, Scene prevScene, String content)// do
+																													// I
+																													// need
+																													// to
+																													// change
+	// from content to
+	// text?
+	{
 //page 2
-	System.out.println(content);
-	Button next2 = create.next();
-	Button prev2 = create.prev();
-	Label content2 = create.content(content);
-	//Scene nextScene = just like
-	
-	//if next is content or question
-	next2.setOnAction(e -> window.setScene(lessonPageIndex)); //how do i dynamically create the scene? push the index through some function?
-	prev2.setOnAction(e -> window.setScene(prevScene)); 
-	VBox layout2 = new VBox(20);
-	layout2.setPadding(new Insets(20,20,20,20));
-	layout2.getChildren().addAll(content2, next2, prev2);
-	layout2.setAlignment(Pos.CENTER);
-	currentScene = new Scene(layout2, 500, 300);
-	currentScene.getStylesheets().add("Style.css");
-	return currentScene;
-}
+		System.out.println(content);
+		Button next2 = create.next();
+		Button prev2 = create.prev();
+		Label content2 = create.content(content);
+		// Scene nextScene = just like
 
+		// if next is content or question
+//	next2.setOnAction(e -> window.setScene(scene1)); //how do i dynamically create the scene? push the index through some function?
+		next2.setOnAction(e -> getToTheNextScreen(myTopic, myLesson, currentScene)); // it needs to be of type scene or
+																						// be a
+		// function which returns a scene.
+		// What else?
+		prev2.setOnAction(e -> getToThePreviousScreen(prevScene));
+		VBox layout2 = new VBox(20);
+		layout2.setPadding(new Insets(20, 20, 20, 20));
+		layout2.getChildren().addAll(content2, next2, prev2);
+		layout2.setAlignment(Pos.CENTER);
+		currentScene = new Scene(layout2, 500, 300);
+		currentScene.getStylesheets().add("Style.css");
+		return currentScene;
+	}
 
+	public Scene questionPage(int lessonPageIndex, Topic myTopic, Lesson myLesson, Scene prevScene,
+			Question myQuestion) {
+
+		Button next2 = create.next();
+		Button prev2 = create.prev();
+		// Label content2 = create.content(myQuestion.getQuestion());
+		// Scene nextScene = just like
+
+		// if next is content or question
+//	next2.setOnAction(e -> window.setScene(scene1)); //how do i dynamically create the scene? push the index through some function?
+		next2.setOnAction(e -> getToTheNextScreen(myTopic, myLesson, currentScene)); // it needs to be of type scene or
+																						// be a
+		// function which returns a scene.
+		// What else?
+		prev2.setOnAction(e -> getToThePreviousScreen(prevScene));
+		VBox layout2 = new VBox(20);
+		layout2.setPadding(new Insets(20, 20, 20, 20));
+		// layout2.getChildren().addAll(content2, next2, prev2);
+		layout2.setAlignment(Pos.CENTER);
+		currentScene = new Scene(layout2, 500, 300);
+		currentScene.getStylesheets().add("Style.css");
+
+		// add answer choices
+		String question = myQuestion.getQuestion(), correctMC1 = myQuestion.getAnswer(),
+				incorrectMC2 = myQuestion.getWrong1(), incorrectMC3 = myQuestion.getWrong2(),
+				incorrectMC4 = myQuestion.getWrong3();
+
+		Label questionTitle = create.content(question);
+//		Button submit = create.button("Submit");
+		Label response = create.content("");
+
+//create radio buttons
+		RadioButton radio1, radio2, radio3, radio4;
+		radio1 = new RadioButton(correctMC1);
+		radio2 = new RadioButton(incorrectMC2);
+		radio3 = new RadioButton(incorrectMC3);
+		radio4 = new RadioButton(incorrectMC4);
+		ToggleGroup q = new ToggleGroup();
+		radio1.setToggleGroup(q);
+		radio2.setToggleGroup(q);
+		radio3.setToggleGroup(q);
+		radio4.setToggleGroup(q);
+//		submit.setDisable(true);
+//		radio1.setOnAction(e -> submit.setDisable(false));
+//		radio2.setOnAction(e -> submit.setDisable(false));
+//		radio3.setOnAction(e -> submit.setDisable(false));
+//		radio4.setOnAction(e -> submit.setDisable(false));
+//		submit.setOnAction(e -> {
+//			if (radio1.isSelected()) {
+//				response.setText("Correct answer");
+//				submit.setDisable(true);
+//			} else {
+//				response.setText("Wrong answer");
+//				submit.setDisable(true);
+//			}
+//		});
+
+//arrange radioButtons in random order to place in grid
+		ArrayList<RadioButton> answerRadio = new ArrayList<RadioButton>();
+		answerRadio.add(radio1);
+		answerRadio.add(radio2);
+		answerRadio.add(radio3);
+		answerRadio.add(radio4);
+		Collections.shuffle(answerRadio);
+
+//create grid and place all objects in it
+		// GridPane grid = new GridPane();
+//		layout2.setConstraints(questionTitle, 0, 0);
+//		//GridPane.setConstraints(submit, 0, 6);
+//		layout2.setConstraints(response, 0, 7);
+//		layout2.setConstraints(answerRadio.get(0), 0, 2);
+//		GridPane.setConstraints(answerRadio.get(1), 0, 3);
+//		GridPane.setConstraints(answerRadio.get(2), 0, 4);
+//		GridPane.setConstraints(answerRadio.get(3), 0, 5);
+
+//grid settings
+//		grid.setPadding(new Insets(20, 20, 20, 20));
+//		grid.setVgap(8);
+//		;
+//		grid.setHgap(10);
+//		grid.getStylesheets().add("Style.css");
+		// grid.getChildren().addAll(questionTitle, radio1, radio2, radio3, radio4,
+		// response);
+		// grid.setAlignment(Pos.CENTER);
+
+		layout2.getChildren().addAll(questionTitle, radio1, radio2, radio3, radio4, response, next2, prev2);
+
+		return currentScene;
+	}
 
 //public Scene questionPage4(int lessonPageIndex,Scene prevScene, Scene nextScene, Question question)
 //{
@@ -337,12 +445,6 @@ public Scene contentPage(int lessonPageIndex,Scene prevScene, String content)// 
 //	scene4 = new Scene(grid4, 500, 300);
 //	scene4.getStylesheets().add("Style.css");
 //}
-
-
-
-
-
-
 
 //public Scene contentPage5(int lessonPageIndex,Scene prevScene, Scene nextScene, String content)
 //{
@@ -412,10 +514,7 @@ public Scene contentPage(int lessonPageIndex,Scene prevScene, String content)// 
 //	scene6 = new Scene(grid6, 500, 300);
 //	scene6.getStylesheets().add("Style.css");
 //}
-public static void main(String[] args) {
-	launch(args);
+	public static void main(String[] args) {
+		launch(args);
+	}
 }
-}
-
-
-

@@ -59,12 +59,9 @@ public class mainStreamLined extends Application {
 				// System.out.println("row, row, row, your boat"+row);
 
 				String[] column = row.split("#");
-
 				Topic myTopic = new Topic("");
 				Lesson myLesson = new Lesson("");
-//			for(String temp: column) {
-//				//System.out.println(temp);
-//			}
+
 
 //this is to avoid index out of bounds errors
 				// both content and questions share these fields
@@ -103,7 +100,7 @@ public class mainStreamLined extends Application {
 				if (column[0].trim().equalsIgnoreCase("c") && column.length >= 5) {
 
 					String content = column[4];
-					// System.out.println(content);
+					//System.out.println(content);
 					Content myContent = new Content(content);
 					myLesson.addContent(myContent);
 					// System.out.println("c");
@@ -226,7 +223,7 @@ public class mainStreamLined extends Application {
 		// see if Lesson has next index
 		if (lessonIndex < contentAndQuestions.size()) {
 
-			TextScribbles scribbles = contentAndQuestions.get(lessonIndex); 
+			TextScribbles scribbles = contentAndQuestions.get(lessonIndex-1); 
 
 			if (scribbles instanceof Content) {
 				currentScene = contentPage(lessonIndex, myTopic, myLesson, prevScene, ((Content) scribbles).getText());
@@ -255,7 +252,7 @@ public class mainStreamLined extends Application {
 
 	/**
 	 * 
-	 * @param lessonPageIndex----how is this useful?
+	 * @param lessonPageIndex-- used to nagivate lessons arraylist
 	 * @param prevScene -- the previous scene
 	 * @param content   -- informative text to teach user how to (Java)
 	 * @return

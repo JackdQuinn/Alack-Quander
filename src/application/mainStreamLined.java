@@ -42,7 +42,7 @@ public class mainStreamLined extends Application {
 //pull scribbles from a file
 	public void setUpQs() {
 		javaTopics = new ArrayList<Topic>();
-		lessonIndex = -1; // offset for goToChosen topic increment call
+		lessonIndex = 0; // offset for goToChosen topic increment call
 
 		File file = new File("ContentHash.txt");
 
@@ -139,15 +139,7 @@ public class mainStreamLined extends Application {
 		create = new createMainButtons();
 
 		setUpQs();
-//for (Topic myTopic : javaTopics) {
-//	System.out.println(myTopic);
-//}
 
-//these will become the two paramerters passed to style functions
-		Topic currentTopic = javaTopics.get(0);
-		// TextScribbles currentScribbles = currentTopic.getText().get(0);
-
-//page 1
 		GridPane grid1 = create.setGrid();
 		Label title = new Label("Welcome to Java!");
 		Label menu = new Label("Menu:");
@@ -221,20 +213,20 @@ public class mainStreamLined extends Application {
 	}
 
 	/**
-	 * 
-	 * @param myTopic,this is Module eg Basics and from this we derive our lesson
-	 *        data eg content and questions.
-	 * @param prevScene, should always be the main menu.
+	 * While lesson has a next Screen navigate to it, else return to the lesson menu
+	 * @param myTopic the topic from which the lessons are derived
+	 * @param myLesson the lesson we are referring to
+	 * @param prevScene the scene that came before
 	 */
 
 	public void getToTheNextScreen(Topic myTopic, Lesson myLesson, Scene prevScene) {
 
-		lessonIndex++; // need to code the set scene back to menu screen if at end of lessons.
+		lessonIndex++; 
 		ArrayList<TextScribbles> contentAndQuestions = myLesson.getText();
 		// see if Lesson has next index
 		if (lessonIndex < contentAndQuestions.size()) {
 
-			TextScribbles scribbles = contentAndQuestions.get(lessonIndex); // what is this grabbing?
+			TextScribbles scribbles = contentAndQuestions.get(lessonIndex); 
 
 			if (scribbles instanceof Content) {
 				currentScene = contentPage(lessonIndex, myTopic, myLesson, prevScene, ((Content) scribbles).getText());
@@ -263,33 +255,20 @@ public class mainStreamLined extends Application {
 
 	/**
 	 * 
-	 * @param           lessonPageIndex----how is this useful?
+	 * @param lessonPageIndex----how is this useful?
 	 * @param prevScene -- the previous scene
 	 * @param content   -- informative text to teach user how to (Java)
 	 * @return
 	 */
 
-	public Scene contentPage(int lessonPageIndex, Topic myTopic, Lesson myLesson, Scene prevScene, String content)// do
-																													// I
-																													// need
-																													// to
-																													// change
-	// from content to
-	// text?
-	{
-//page 2
+	public Scene contentPage(int lessonPageIndex, Topic myTopic, Lesson myLesson, Scene prevScene, String content)	{
+
 		System.out.println(content);
 		Button next2 = create.next();
 		Button prev2 = create.prev();
 		Label content2 = create.content(content);
-		// Scene nextScene = just like
 
-		// if next is content or question
-//	next2.setOnAction(e -> window.setScene(scene1)); //how do i dynamically create the scene? push the index through some function?
-		next2.setOnAction(e -> getToTheNextScreen(myTopic, myLesson, currentScene)); // it needs to be of type scene or
-																						// be a
-		// function which returns a scene.
-		// What else?
+		next2.setOnAction(e -> getToTheNextScreen(myTopic, myLesson, currentScene)); 
 		prev2.setOnAction(e -> getToThePreviousScreen(prevScene));
 		VBox layout2 = new VBox(20);
 		layout2.setPadding(new Insets(20, 20, 20, 20));
@@ -305,19 +284,10 @@ public class mainStreamLined extends Application {
 
 		Button next2 = create.next();
 		Button prev2 = create.prev();
-		// Label content2 = create.content(myQuestion.getQuestion());
-		// Scene nextScene = just like
-
-		// if next is content or question
-//	next2.setOnAction(e -> window.setScene(scene1)); //how do i dynamically create the scene? push the index through some function?
-		next2.setOnAction(e -> getToTheNextScreen(myTopic, myLesson, currentScene)); // it needs to be of type scene or
-																						// be a
-		// function which returns a scene.
-		// What else?
+		next2.setOnAction(e -> getToTheNextScreen(myTopic, myLesson, currentScene)); 
 		prev2.setOnAction(e -> getToThePreviousScreen(prevScene));
 		VBox layout2 = new VBox(20);
 		layout2.setPadding(new Insets(20, 20, 20, 20));
-		// layout2.getChildren().addAll(content2, next2, prev2);
 		layout2.setAlignment(Pos.CENTER);
 		currentScene = new Scene(layout2, 500, 300);
 		currentScene.getStylesheets().add("Style.css");
@@ -328,7 +298,7 @@ public class mainStreamLined extends Application {
 				incorrectMC4 = myQuestion.getWrong3();
 
 		Label questionTitle = create.content(question);
-//		Button submit = create.button("Submit");
+		Button submit = create.submit();
 		Label response = create.content("");
 
 //create radio buttons
@@ -342,20 +312,20 @@ public class mainStreamLined extends Application {
 		radio2.setToggleGroup(q);
 		radio3.setToggleGroup(q);
 		radio4.setToggleGroup(q);
-//		submit.setDisable(true);
-//		radio1.setOnAction(e -> submit.setDisable(false));
-//		radio2.setOnAction(e -> submit.setDisable(false));
-//		radio3.setOnAction(e -> submit.setDisable(false));
-//		radio4.setOnAction(e -> submit.setDisable(false));
-//		submit.setOnAction(e -> {
-//			if (radio1.isSelected()) {
-//				response.setText("Correct answer");
-//				submit.setDisable(true);
-//			} else {
-//				response.setText("Wrong answer");
-//				submit.setDisable(true);
-//			}
-//		});
+		submit.setDisable(true);
+		radio1.setOnAction(e -> submit.setDisable(false));
+		radio2.setOnAction(e -> submit.setDisable(false));
+		radio3.setOnAction(e -> submit.setDisable(false));
+		radio4.setOnAction(e -> submit.setDisable(false));
+		submit.setOnAction(e -> {
+			if (radio1.isSelected()) {
+				response.setText("Correct answer");
+				submit.setDisable(true);
+			} else {
+				response.setText("Wrong answer");
+				submit.setDisable(true);
+			}
+		});
 
 //arrange radioButtons in random order to place in grid
 		ArrayList<RadioButton> answerRadio = new ArrayList<RadioButton>();
@@ -366,154 +336,30 @@ public class mainStreamLined extends Application {
 		Collections.shuffle(answerRadio);
 
 //create grid and place all objects in it
-		// GridPane grid = new GridPane();
-//		layout2.setConstraints(questionTitle, 0, 0);
-//		//GridPane.setConstraints(submit, 0, 6);
-//		layout2.setConstraints(response, 0, 7);
-//		layout2.setConstraints(answerRadio.get(0), 0, 2);
-//		GridPane.setConstraints(answerRadio.get(1), 0, 3);
-//		GridPane.setConstraints(answerRadio.get(2), 0, 4);
-//		GridPane.setConstraints(answerRadio.get(3), 0, 5);
+		GridPane grid = new GridPane();
+		GridPane.setConstraints(questionTitle, 0, 0);
+		//GridPane.setConstraints(submit, 0, 6);
+		GridPane.setConstraints(response, 0, 7);
+		GridPane.setConstraints(answerRadio.get(0), 0, 2);
+		GridPane.setConstraints(answerRadio.get(1), 0, 3);
+		GridPane.setConstraints(answerRadio.get(2), 0, 4);
+		GridPane.setConstraints(answerRadio.get(3), 0, 5);
 
 //grid settings
-//		grid.setPadding(new Insets(20, 20, 20, 20));
-//		grid.setVgap(8);
-//		;
-//		grid.setHgap(10);
-//		grid.getStylesheets().add("Style.css");
-		// grid.getChildren().addAll(questionTitle, radio1, radio2, radio3, radio4,
-		// response);
-		// grid.setAlignment(Pos.CENTER);
+		grid.setPadding(new Insets(20, 20, 20, 20));
+		grid.setVgap(8);
+		;
+		grid.setHgap(10);
+		grid.getStylesheets().add("Style.css");
+		grid.getChildren().addAll(questionTitle, radio1, radio2, radio3, radio4,
+		 response);
+		grid.setAlignment(Pos.CENTER);
 
-		layout2.getChildren().addAll(questionTitle, radio1, radio2, radio3, radio4, response, next2, prev2);
+		layout2.getChildren().addAll(questionTitle, radio1, radio2, radio3, radio4, response, next2, prev2, submit);
 
 		return currentScene;
 	}
 
-//public Scene questionPage4(int lessonPageIndex,Scene prevScene, Scene nextScene, Question question)
-//{
-//////page 4
-//	GridPane grid4 = create.setGrid();
-//	Button next4 = create.next();
-//	Button prev4 = create.prev();
-//	Button submit4 = create.submit();
-//	Label response4 = create.response();
-//	Label questionTitle4 = create.question(currentQuestion.getQuestion());
-//	System.out.println(currentQuestion.getCorrectedness());
-//	questionTitle4.setWrapText(true);
-//	next4.setOnAction(e -> window.setScene(scene5)); 
-//	prev4.setOnAction(e -> window.setScene(scene3)); 
-//	RadioButton radio1, radio2, radio3;
-//	radio1=new RadioButton(currentQuestion.getWrong1());
-//	radio2= new RadioButton(currentQuestion.getWrong2());
-//	radio3= new RadioButton(currentQuestion.getAnswer());
-//	ToggleGroup question4= new ToggleGroup();
-//	radio1.setToggleGroup(question4);
-//	radio2.setToggleGroup(question4);
-//	radio3.setToggleGroup(question4);
-//	submit4.setDisable(true);
-//	radio1.setOnAction(e -> submit4.setDisable(false) );
-//	radio2.setOnAction(e -> submit4.setDisable(false) );
-//	radio3.setOnAction(e -> submit4.setDisable(false) );
-//	submit4.setOnAction(e -> {
-//		if (radio3.isSelected()) {
-//			response4.setText("Correct answer");
-//			submit4.setDisable(true);
-//			currentQuestion.gotCorrect(true);
-//		}
-//		else {
-//			response4.setText("Wrong answer");
-//			submit4.setDisable(true);
-//			currentQuestion.gotCorrect(false);
-//		}  
-//		
-//		System.out.println(currentQuestion.getCorrectedness());
-//	});
-//	
-//	
-//	GridPane.setConstraints(next4,0,8);
-//	GridPane.setConstraints(prev4,0,9);
-//	GridPane.setConstraints(questionTitle4,0,0);
-//	GridPane.setConstraints(submit4,0,5);
-//	GridPane.setConstraints(response4,0,6);
-//	GridPane.setConstraints(radio1,0,2);
-//	GridPane.setConstraints(radio2,0,3);
-//	GridPane.setConstraints(radio3,0,4);
-//	grid4.setPadding(new Insets(20,20,20,20));;
-//	grid4.getChildren().addAll(questionTitle4, radio1, radio2, radio3, submit4, response4, next4, prev4);
-//	grid4.setAlignment(Pos.CENTER);
-//	scene4 = new Scene(grid4, 500, 300);
-//	scene4.getStylesheets().add("Style.css");
-//}
-
-//public Scene contentPage5(int lessonPageIndex,Scene prevScene, Scene nextScene, String content)
-//{
-////page 5
-//	Button next5 = create.next();
-//	Button prev5 = create.prev();
-//	
-//	Label content5_1 = create.content("Java runs on more than 3 billion devices. ");
-//	Label content5_2 = create.content("Java is used to develop apps for Google's Android OS, various Desktop Applications,, Web Applications, Enterprise Applications (i.e. trading, inventory), and many more!\r\n");
-//	Label content5_3 = create.content("Learn, practice, and then join the huge community of developers around the world creating the content of the future!");
-//	next5.setOnAction(e -> window.setScene(scene6)); 
-//	prev5.setOnAction(e -> window.setScene(scene4)); 
-//	VBox layout5 = new VBox(20);
-//	layout5.setPadding(new Insets(20,20,20,20));
-//	layout5.getChildren().addAll(content5_1, content5_2, content5_3, next5, prev5);
-//	layout5.setAlignment(Pos.CENTER);
-//	scene5 = new Scene(layout5, 500, 300);
-//	scene5.getStylesheets().add("Style.css");
-//}
-//
-//public Scene questionPage6(int lessonPageIndex,Scene prevScene, Scene nextScene, String content)
-//{
-////page 6
-//	GridPane grid6 = create.setGrid();
-//	Button main6 = create.goToMenu();
-//	Button prev6 = create.prev();
-//	Button submit6 = create.submit();
-//	Label response6 = create.response();
-//	Label questionTitle6 = create.question("Which one of the following statements is true?");
-//	questionTitle6.setWrapText(true);
-//	main6.setOnAction(e -> window.setScene(scene1)); 
-//	prev6.setOnAction(e -> window.setScene(scene3)); 
-//	RadioButton radio6_1, radio6_2, radio6_3;
-//	radio6_1=new RadioButton("Java has a huge developer community.");
-//	radio6_2= new RadioButton("Java is used only in web and mobile applications.");
-//	radio6_3= new RadioButton("Java is used only in NASA's space related applications.");
-//	ToggleGroup question6= new ToggleGroup();
-//	radio6_1.setToggleGroup(question6);
-//	radio6_2.setToggleGroup(question6);
-//	radio6_3.setToggleGroup(question6);
-//	submit6.setDisable(true);
-//	radio6_1.setOnAction(e -> submit6.setDisable(false) );
-//	radio6_2.setOnAction(e -> submit6.setDisable(false) );
-//	radio6_3.setOnAction(e -> submit6.setDisable(false) );
-//	submit6.setOnAction(e -> {
-//		if (radio6_1.isSelected()) {
-//			response6.setText("Correct answer");
-//			submit6.setDisable(true);
-//		}
-//		else {
-//			response6.setText("Wrong answer");
-//			submit6.setDisable(true);
-//		}           
-//	});
-//	GridPane.setConstraints(main6,0,8);
-//	GridPane.setConstraints(prev6,0,9);
-//	GridPane.setConstraints(questionTitle6,0,0);
-//	GridPane.setConstraints(submit6,0,5);
-//	GridPane.setConstraints(response6,0,6);
-//	GridPane.setConstraints(radio6_1,0,2);
-//	GridPane.setConstraints(radio6_2,0,3);
-//	GridPane.setConstraints(radio6_3,0,4);
-//	grid6.setPadding(new Insets(20,20,20,20));;
-//	grid6.getChildren().addAll(questionTitle6, radio6_1, radio6_2, radio6_3, submit6, response6, main6, prev6);
-//	grid6.setAlignment(Pos.CENTER);
-//	
-//	scene6 = new Scene(grid6, 500, 300);
-//	scene6.getStylesheets().add("Style.css");
-//}
 	public static void main(String[] args) {
 		launch(args);
 	}

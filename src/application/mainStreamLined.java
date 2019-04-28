@@ -68,7 +68,7 @@ public class mainStreamLined extends Application {
 				if (column.length >= 4) {
 
 					// grab the topic from the file.
-					String topic = column[1];
+					String topic = column[1].trim();
 					String lessonText = column[2];
 					// check to see if topic already exists inside javaTopics, if not create a new
 					// topic and add to arraylist
@@ -81,7 +81,7 @@ public class mainStreamLined extends Application {
 					}
 
 					if (exists == false) {
-						myTopic = new Topic(topic);
+						myTopic = new Topic(topic.trim());
 						javaTopics.add(myTopic);
 
 					}
@@ -240,6 +240,7 @@ public class mainStreamLined extends Application {
 		//no next screen in lesson, return to lesson menu
 		else {
 			window.setScene(lessonMenu);
+			lessonIndex = 0;
 		}
 
 	}

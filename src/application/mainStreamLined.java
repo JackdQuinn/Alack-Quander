@@ -108,7 +108,7 @@ public class mainStreamLined extends Application {
 					// question fields
 					String questionType = column[5];
 					String question = column[6];
-					// System.out.println(question);
+					//System.out.println(question);
 					String correctAnswer = column[7];
 					String wrongAnswer1 = column[8];
 					String wrongAnswer2 = column[9];
@@ -129,7 +129,7 @@ public class mainStreamLined extends Application {
 			e.printStackTrace();
 		}
 	}
-
+//Topic Menu
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		window = primaryStage;
@@ -168,7 +168,7 @@ public class mainStreamLined extends Application {
 		window.getStyle();
 		window.show();
 	}
-
+//lesson menu
 	public void goToLessons(Stage primaryStage, Topic currentTopic) {
 		window = primaryStage;
 		create = new createMainButtons();
@@ -221,7 +221,7 @@ public class mainStreamLined extends Application {
 		lessonIndex++; 
 		ArrayList<TextScribbles> contentAndQuestions = myLesson.getText();
 		// see if Lesson has next index
-		if (lessonIndex < contentAndQuestions.size()) {
+		if (lessonIndex <= contentAndQuestions.size()) {
 
 			TextScribbles scribbles = contentAndQuestions.get(lessonIndex-1); 
 
@@ -261,7 +261,7 @@ public class mainStreamLined extends Application {
 
 	public Scene contentPage(int lessonPageIndex, Topic myTopic, Lesson myLesson, Scene prevScene, String content)	{
 
-		System.out.println(content);
+		//System.out.println(content);
 		Button next2 = create.next();
 		Button prev2 = create.prev();
 		Label content2 = create.content(content);

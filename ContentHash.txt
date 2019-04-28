@@ -5,6 +5,10 @@ c #Basics  	#intro 	#1    #Today java is one of the most popular languages in th
 q #Basics  	#intro 	#2    #        	#MC     #To distribute your application to different platforms, how many Java versions do you need to create?#Just one version#Two versions#One for each platform#42##
 c #Basics  	#intro  #3    #Java runs on more than 3 billion devices.  Java is used to develop apps for Google's Android OS, various Desktop Applications, Web Applications, Enterprise Applications (i.e. trading, inventory), and many more!########
 c #Basics  	#intro  #3    #Learn, practice, and then join the huge community of developers around the world creating the content of the future!########
-q #Basics  	#intro  #4    #        	#MC     #"Which one of the following statements is true?"#Java has a huge developer community#Java is used only in web and mobile applications#Java is used only in NASA's space related applications#Java was developed by Starbuck's for their web development needs##
-c#Basics#HelloWorld#1#Your First Java Program, /nLet's start by creating a simple program printing “Hello World” to the screen.#
-c#Basics#HelloWorld#1#Hello World was the first message displayed by the Macintosh personal computer in 1984 and is the traditional first program written when learning to code.
+q #Basics  	#intro  #4    #        	#MC     #"Which one of the following statements is true?"#Java has a huge developer community#Java is used only in web and mobile applications#Java is used only in NASA's space related applications#Java was developed by Starbuck's for their web development needs######
+c#Basics#HelloWorld#1#Your First Java Program, Let's start by creating a simple program printing “Hello World” to the screen.#
+c#Basics#HelloWorld#1#Hello World was the first message displayed by the Macintosh personal computer in 1984 and is the traditional first program written when learning to code.#
+c#Basics#HelloWorld#1# class Java101 {public static void main(String[ ] args) {System.out.println("Hello World");}}#
+c#Basics#HelloWorld#1#In Java, every line of code that will run needs to be inside a class. In our example, we named the class Java101. You will learn more about classes in the upcoming modules.#
+c#Basics#HelloWorld#1#In Java, each application has an entry point, or a starting point, which is a method called main. Along with main, the keywords public and static will also be explained later. 
+c#Basics#HelloWorld#1#As a summary:(1) Every program in Java must have a class. (2)Every Java program starts from the main method.

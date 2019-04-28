@@ -1,15 +1,15 @@
 package application;
 
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
-import javafx.stage.Stage;
+import javafx.scene.shape.Circle;
 
 public class createMainButtons {
-	Stage window;
-	
+
 	public Button next() {
 		Button next = new Button("Next");
 		return next;
@@ -20,16 +20,11 @@ public class createMainButtons {
 		return previous;
 	}
 	
-	public Button goToMenu() {
-		Button menu = new Button("Go to Menu");
-		return menu;
-	}
-	
 	public Button submit() {
 		Button submit = new Button("Submit");
 		return submit;
 	}
-	
+
 	public Label response() {
 		Label response = new Label();
 		return response;
@@ -43,6 +38,7 @@ public class createMainButtons {
 	
 	public Label question(String input) {
 		Label question = new Label(input);
+		question.setWrapText(true);
 		return question;
 	}
 	
@@ -58,6 +54,17 @@ public class createMainButtons {
 		grid.setVgap(8);
 		grid.setHgap(10);
 		return grid;
+	}
+	
+	public Button topicButton(String buttonName) {
+		Button button = new Button(buttonName);
+		button.setWrapText(true);
+		double r=28;
+		button.setShape(new Circle(r));
+		button.setMinSize(2*r, 2*r);
+		button.setMaxSize(2*r, 2*r);
+		button.setAlignment(Pos.CENTER);
+		return button;
 	}
 	
 }

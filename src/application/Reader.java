@@ -2,63 +2,96 @@ package application;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.Scanner;
-import java.io.FileReader;
-import java.io.BufferedReader;
-
 
 public class Reader {
 	
-	private HashMap<Integer, ReaderData> readerData;
+	int lessonIndex;
+	ArrayList<Topic> javaTopics;
 	
+	//pull scribbles from a file
 	public Reader() {
-		File file = new File("Content.txt");
-		readerData = new HashMap <Integer, ReaderData>();
+		javaTopics = new ArrayList<Topic>();
+		lessonIndex = 0; // offset for goToChosen topic increment call
+
+		File file = new File("ContentHash.txt");
+
 		try {
 			Scanner scanner = new Scanner(file);
 			scanner.nextLine();
-			int index = 1;
+			
 			while (scanner.hasNextLine()) {
+				// this is where we would read in the data and input here
+				// for pulling as a loop insert that variable instead of "Basics"
 				String row = scanner.nextLine();
-				String [] column = row.split("|");
-				String topic = column[0];
-				String lesson = column[1];
-				String title = column[2];
-				String page = column[3];
-				String content= column[4];
-				String questionType = column[5];
-				String question = column[6];
-				String correctAnswer = column[7];
-				String wrongAnswer1 = column[8];
-				String wrongAnswer2 = column [9];
-				String wrongAnswer3 = column[10];
-				String FIB1 = column[11];
-				String FIB2 = column[12];
-				ReaderData rd = new ReaderData(topic, lesson, title, page, content, questionType, 
-						question, correctAnswer, wrongAnswer1, wrongAnswer2, wrongAnswer3, FIB1, FIB2);
-				readerData.put(index, rd);	
-				index++;
+				String[] column = row.split("#");
+				Topic myTopic = new Topic("");
+				Lesson myLesson = new Lesson("");
+
+				//this is to avoid index out of bounds errors
+				// both content and questions share these fields
+				if (column.length >= 4) {
+					// grab the topic from the file.
+					String topic = column[1].trim();
+					String lessonText = column[2];
+					// check to see if topic already exists inside javaTopics, if not create a new
+					// topic and add to arrayList
+					boolean exists = false;
+					for (Topic thisTopic : javaTopics) {
+						if (thisTopic.getTopic().equalsIgnoreCase(topic)) {
+							exists = true;
+							myTopic = thisTopic;
+						}
+					}
+
+					if (exists == false) {
+						myTopic = new Topic(topic.trim());
+						javaTopics.add(myTopic);
+
+					}
+
+					// check to see if lesson already exists inside the Topic Object
+					myLesson = myTopic.addLesson(lessonText.trim());
+					String type = column[0];
+					String module = column[1];
+					String page = column[3];
+				}
+				
+				// content fields
+				if (column[0].trim().equalsIgnoreCase("c") && column.length >= 5) {
+					String content = column[4];
+					//System.out.println(content);
+					Content myContent = new Content(content);
+					myLesson.addContent(myContent);
+					// System.out.println("c");
+				} else if (column.length >= 11) {
+					// question fields
+					String questionType = column[5];
+					String question = column[6];
+					//System.out.println(question);
+					String correctAnswer = column[7];
+					String wrongAnswer1 = column[8];
+					String wrongAnswer2 = column[9];
+					String wrongAnswer3 = column[10];
+					Question myQuestion = new Question(question, correctAnswer, wrongAnswer1, wrongAnswer2,
+							wrongAnswer3);
+					myLesson.addQuestion(myQuestion);
+				}
 			}
-		scanner.close();
+			scanner.close();
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 	
-	public void retrieveContent() {
-		HashMap <String, String> content = new HashMap <>();
-		for (int target : readerData.keySet()) {
-			ReaderData r = readerData.get(target);
-			String title = r.getTitle();
-			String topic = r.getTopic();
-			String lesson = r.getLesson();
-		}
-	}
 	
-	public static void main(String[] args) {
-		Reader r = new Reader();
-		r.retrieveContent();
+	public ArrayList topics() {
+		return javaTopics;
+		
 	}
+
 }
+	
+

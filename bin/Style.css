@@ -19,7 +19,7 @@
 	-fx-background-radius: 10;
 	-fx-text-fill: #ffffff;
 }
-#logo {
-    -fx-image: url("UPenn_logo.png");
+#menuPane {
+	-fx-background-color: #1e90ff;
+	-fx-font-size: 12pt;
 }
-

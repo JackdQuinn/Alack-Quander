@@ -3,6 +3,8 @@ package application;
 import java.util.ArrayList;
 import java.util.Collections;
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -180,9 +182,13 @@ public class mainStreamLined extends Application {
 	//create radio buttons
 		RadioButton radio1, radio2, radio3, radio4;
 		radio1=new RadioButton(correctMC1);
+		radio1.setWrapText(true);
 		radio2=new RadioButton(incorrectMC2);
+		radio2.setWrapText(true);
 		radio3=new RadioButton(incorrectMC3);
+		radio3.setWrapText(true);
 		radio4=new RadioButton(incorrectMC4);
+		radio4.setWrapText(true);
 		radio1.setFocusTraversable(false); //prevent automatic highlighting
 		radio2.setFocusTraversable(false); //prevent automatic highlighting
 		radio3.setFocusTraversable(false); //prevent automatic highlighting
@@ -192,23 +198,21 @@ public class mainStreamLined extends Application {
 		radio1.setToggleGroup(q);
 		radio2.setToggleGroup(q);
 		radio3.setToggleGroup(q);
-		radio4.setToggleGroup(q);
-		radio1.setOnAction(e -> AlertBox.display("Correct, good job!", "Close"));
-		radio2.setOnAction(e -> AlertBox.display("Incorrect, please try again.", "Close"));
-		radio3.setOnAction(e -> AlertBox.display("Incorrect, please try again.", "Close"));
-		radio4.setOnAction(e -> AlertBox.display("Incorrect, please try again.", "Close"));
+		radio4.setToggleGroup(q);		
 		radio1.setOnAction(e -> submit.setDisable(false) );
 		radio2.setOnAction(e -> submit.setDisable(false) );
 		radio3.setOnAction(e -> submit.setDisable(false) );
 		radio4.setOnAction(e -> submit.setDisable(false) );
 		submit.setOnAction(e -> {
 		if (radio1.isSelected()) {
-			response.setText("Correct answer");
-			submit.setDisable(true);
+			AlertBox.display("Correct, good job!");
+			//response.setText("Correct answer");
+			//submit.setDisable(true);
 		}
 		else {
-			response.setText("Wrong answer");
-			submit.setDisable(true);
+			//response.setText("Wrong answer");
+			//submit.setDisable(true);
+			AlertBox.display("Incorrect, please try again.");
 		}           
 		});
 	//arrange radioButtons in random order to place in grid
@@ -236,6 +240,8 @@ public class mainStreamLined extends Application {
 	public static void main(String[] args) {
 		launch(args);
 	}
+
+	
 }
 
 

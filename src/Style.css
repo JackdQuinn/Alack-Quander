@@ -1,11 +1,11 @@
 
 .root{
 	-fx-background-color: #f0f8ff;
-	-fx-font-size: 9pt;
+	-fx-font-size: 12pt;
 }
 .window{
 	-fx-background-color: #2f4f4f;
-	-fx-font-size: 10pt;
+	-fx-font-size: 12pt;
 	-fx-font-weight: bold;
 	-fx-text-fill: #ffffff;
 }
@@ -16,7 +16,7 @@
 }
 .button {
 	-fx-background-color: #778899;
-	-fx-background-radius: 10;
+	-fx-background-radius: 9;
 	-fx-text-fill: #ffffff;
 }
 #menuPane {

@@ -58,6 +58,17 @@ public class CreateMainButtons {
 		return shortAnswer;
 	}
 	
+	public Button topicButton(String buttonName) {
+		Button button = new Button(buttonName);
+		button.setWrapText(true);
+		double r=40;
+		button.setShape(new Circle(r));
+		button.setMinSize(2*r, 2*r);
+		button.setMaxSize(2*r, 2*r);
+		button.setAlignment(Pos.CENTER);
+		return button;
+	}
+	
 	public GridPane setGrid() {
 		GridPane grid = new GridPane();
 		grid.setPadding(new Insets(20,20,20,20));
@@ -75,20 +86,17 @@ public class CreateMainButtons {
 		return vbox;
 	}
 	
-	public Button topicButton(String buttonName) {
-		Button button = new Button(buttonName);
-		button.setWrapText(true);
-		double r=28;
-		button.setShape(new Circle(r));
-		button.setMinSize(2*r, 2*r);
-		button.setMaxSize(2*r, 2*r);
-		button.setAlignment(Pos.CENTER);
-		return button;
+	public HBox setHbox() {
+		HBox hbox = new HBox(10);
+		hbox.setPadding(new Insets(20,20,20,20));
+		hbox.setAlignment(Pos.CENTER);
+		hbox.getStylesheets().add(windowStyle);
+		return hbox;
 	}
 	
-	public BorderPane setMenu(String title, GridPane g) {
+	public BorderPane setBorderPane(String title, VBox v, GridPane g) {
 		BorderPane borderPane = new BorderPane();
-		borderPane.setPadding(new Insets(20,20,20,20));
+		borderPane.setPadding(new Insets(10,10,10,10));
 
 		//center
 		GridPane centerMenu = new GridPane();
@@ -115,13 +123,16 @@ public class CreateMainButtons {
 		//top
 		HBox topMenu = new HBox();
 		Label t = new Label(title);
+		t.setWrapText(true);
 		topMenu.setAlignment(Pos.TOP_LEFT);
 		topMenu.getChildren().addAll(t);
 		topMenu.getStyleClass().add("menuPane");
 		
 		//right
 		VBox rightMenu = new VBox();
-		rightMenu.setAlignment(Pos.TOP_RIGHT);
+		rightMenu.getChildren().add(v);
+		rightMenu.setAlignment(Pos.BOTTOM_RIGHT);
+		
 		
 		//add to borderPane
 		borderPane.setTop(topMenu);

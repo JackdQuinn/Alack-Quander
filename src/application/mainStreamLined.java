@@ -146,25 +146,35 @@ public class mainStreamLined extends Application {
 	 * @return
 	 */
 	public Scene contentPage(int lessonPageIndex, Topic myTopic, Lesson myLesson, Scene prevScene, String content)	{
-	//create layout and buttons
+	//grid
 		GridPane grid = create.setGrid();
+		Label c = create.content(content);
+		GridPane.setConstraints(c, 0, 4);
+		grid.getChildren().add(c);
+	//vBox	
 		VBox vbox = create.setVbox();
 		Button n = create.next();
 		Button p = create.prev();
-		vbox.getChildren().addAll(n, p);
-	//set action for next/previous
 		n.setOnAction(e -> getToTheNextScreen(myTopic, myLesson, currentScene)); 
 		p.setOnAction(e -> getToThePreviousScreen(prevScene));
+		vbox.getChildren().addAll(n, p);
 	//BorderPane	
-		BorderPane bp = create.setBorderPane(content, vbox, grid);
+		BorderPane bp = create.setBorderPane("Learning", vbox, grid);
 		currentScene = new Scene(bp, 700, 500);
 		return currentScene;
 	}
 
 	public Scene questionPage(int lessonPageIndex, Topic myTopic, Lesson myLesson, Scene prevScene, Question myQuestion) {
+	// add answer choices 
+		String question     = myQuestion.getQuestion();
+		String correctMC1   = myQuestion.getAnswer();
+		String incorrectMC2 = myQuestion.getWrong1();
+		String incorrectMC3 = myQuestion.getWrong2();
+		String incorrectMC4 = myQuestion.getWrong3();
+		
 		GridPane grid = create.setGrid(); 
-	//create action buttons
 		Button submit = create.submit();
+		Label questionQ = create.content(question);
 		Label response = create.content("");
 	//add to Vbox
 		VBox vbox = create.setVbox();
@@ -173,12 +183,7 @@ public class mainStreamLined extends Application {
 		n.setOnAction(e -> getToTheNextScreen(myTopic, myLesson, currentScene)); 
 		p.setOnAction(e -> getToThePreviousScreen(prevScene));
 		vbox.getChildren().addAll(n, p);
-	// add answer choices 
-		String question     = myQuestion.getQuestion();
-		String correctMC1   = myQuestion.getAnswer();
-		String incorrectMC2 = myQuestion.getWrong1();
-		String incorrectMC3 = myQuestion.getWrong2();
-		String incorrectMC4 = myQuestion.getWrong3();
+	
 	//create radio buttons
 		RadioButton radio1, radio2, radio3, radio4;
 		radio1=new RadioButton(correctMC1);
@@ -204,16 +209,12 @@ public class mainStreamLined extends Application {
 		radio3.setOnAction(e -> submit.setDisable(false) );
 		radio4.setOnAction(e -> submit.setDisable(false) );
 		submit.setOnAction(e -> {
-		if (radio1.isSelected()) {
-			AlertBox.display("Correct, good job!");
-			//response.setText("Correct answer");
-			//submit.setDisable(true);
-		}
-		else {
-			//response.setText("Wrong answer");
-			//submit.setDisable(true);
-			AlertBox.display("Incorrect, please try again.");
-		}           
+			if (radio1.isSelected()) {
+				AlertBox.display("Correct, good job!"); //alert box pop up to tell you if you were correct or to try again
+			}
+			else {
+				AlertBox.display("Incorrect, please try again.");
+			}           
 		});
 	//arrange radioButtons in random order to place in grid
 		ArrayList<RadioButton> answerRadio = new ArrayList<RadioButton>();
@@ -230,9 +231,9 @@ public class mainStreamLined extends Application {
 		GridPane.setConstraints(answerRadio.get(2),0,4);
 		GridPane.setConstraints(answerRadio.get(3),0,5);
 	//add objects to grid
-		grid.getChildren().addAll(radio1, radio2, radio3, radio4, response, submit);
+		grid.getChildren().addAll(questionQ, radio1, radio2, radio3, radio4, response, submit);
 	//BorderPane	
-		BorderPane bp = create.setBorderPane(question, vbox, grid);
+		BorderPane bp = create.setBorderPane("Multiple Choice", vbox, grid);
 		currentScene = new Scene(bp, 700, 500);
 		return currentScene;
 	}

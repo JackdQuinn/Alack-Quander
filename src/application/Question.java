@@ -18,11 +18,11 @@ public class Question extends TextScribbles {
  */
 public Question(String question, String answer, String wrong1, String wrong2, String wrong3) {
 		super();
-		this.question = question;
-		this.answer = answer;
-		this.wrong1 = wrong1;
-		this.wrong2 = wrong2;
-		this.wrong3 = wrong3;
+		this.question = iFeelPretty(question);
+		this.answer = iFeelPretty(answer);
+		this.wrong1 = iFeelPretty(wrong1);
+		this.wrong2 = iFeelPretty(wrong2);
+		this.wrong3 = iFeelPretty(wrong3);
 		
 		views = 0;
 		correctedness = 0;

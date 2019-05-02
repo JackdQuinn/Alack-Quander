@@ -5,7 +5,7 @@ public class Content extends TextScribbles{
 
 	public Content(String text) {
 		super();
-		this.text = text;
+		this.text = iFeelPretty(text);
 	}
 	
 	
@@ -16,4 +16,5 @@ public class Content extends TextScribbles{
 	public void setText(String text) {
 		this.text = text;
 	}
+	
 }

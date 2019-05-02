@@ -158,18 +158,3 @@ public void start(Stage primaryStage) throws Exception{
 
 
 }
-<<<<<<< HEAD
-=======
-
-
-
-
-
-
-<<<<<<< HEAD
->>>>>>> bf6450e1361b0b4308c3583c8b8867bebfe13ae7
-=======
-
-
-
->>>>>>> bf6450e1361b0b4308c3583c8b8867bebfe13ae7

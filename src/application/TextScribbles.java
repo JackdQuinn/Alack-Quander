@@ -7,6 +7,22 @@ public abstract class TextScribbles {
 		super();
 		
 	}
+	
+	/** 
+	 *  take in raw text and recognize \n to make it display more gooder.
+	 * @param toMakeOver, the big ugly block of strings not recognizing the newline symbol.
+	 * @return the smaller, more agile and multi-line purty string
+	 */
+	
+	public  String iFeelPretty(String toMakeOver) {
+		while (toMakeOver.indexOf("\\n") >=0 ) {
+			int index = toMakeOver.indexOf("\\n");
+			toMakeOver = toMakeOver.substring(0, index) +"\n" + toMakeOver.substring(index+2);
+			
+		}
+		
+		return toMakeOver;
+	}
 
 
 }

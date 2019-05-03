@@ -3,8 +3,6 @@ package application;
 import java.util.ArrayList;
 import java.util.Collections;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -12,7 +10,6 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -21,7 +18,8 @@ public class mainStreamLined extends Application {
 	//State variables	
 		Stage window;
 		Scene beforeScene, afterScene, currentScene, topicMenu, lessonMenu;
-		CreateMainButtons create;
+		CreateMainButtons createButton;
+		CreateMainLayout createLayout;
 		int lessonIndex;
 		ArrayList<Topic> javaTopics;
 		String windowTitle = "Alack-Quander 591 Study Buddy";
@@ -31,17 +29,18 @@ public class mainStreamLined extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		window = primaryStage;
-		create = new CreateMainButtons();
+		createButton = new CreateMainButtons();
+		createLayout = new CreateMainLayout();
 		javaTopics = reader.topics();
 	//gridPane and vBox
-		GridPane grid = create.setGrid();
-		VBox vbox = create.setVbox();
+		GridPane grid = createLayout.setGrid();
+		VBox vbox = createLayout.setVbox();
 	// dynamically add buttons
 		lessonIndex = 0;
 		int r = 3;
 		int c = 6;
 		for (Topic temp : javaTopics) {
-			Button btnTopic = create.topicButton(temp.getTopic());
+			Button btnTopic = createButton.topicButton(temp.getTopic());
 			btnTopic.setOnAction(e -> goToLessons(primaryStage, temp)); // brings you to new page
 			GridPane.setConstraints(btnTopic, r, c);
 			// handle button locations
@@ -56,8 +55,8 @@ public class mainStreamLined extends Application {
 		GridPane.setConstraints(menu, 0, 5);
 		grid.getChildren().addAll(menu);
 	//BorderPane	
-		BorderPane bp = create.setBorderPane("Welcome!", vbox, grid);
-		topicMenu = new Scene(bp, 700, 500);
+		BorderPane bp = createLayout.setBorderPane("Welcome!", vbox, grid);
+		topicMenu = new Scene(bp, 800, 600);
 		window.setScene(topicMenu);
 		window.setTitle(windowTitle);
 		window.show();
@@ -69,10 +68,10 @@ public class mainStreamLined extends Application {
 		window.setTitle(windowTitle);
 		String title = "Lesson Menu for " + currentTopic.getTopic();
 	//gridPane
-		GridPane grid = create.setGrid();
+		GridPane grid = createLayout.setGrid();
 	//VBox
-		VBox vbox = create.setVbox();
-		Button p = create.prev();
+		VBox vbox = createLayout.setVbox();
+		Button p = createButton.prev();
 		p.setOnAction(e -> getToThePreviousScreen(topicMenu));
 		vbox.getChildren().addAll(p);
 	//dynamically add buttons for each topic and add to grid
@@ -93,8 +92,8 @@ public class mainStreamLined extends Application {
 			grid.getChildren().add(btnLesson);
 		}
 	//BorderPane
-		BorderPane bp = create.setBorderPane(title, vbox, grid);
-		lessonMenu = new Scene(bp, 700, 500);
+		BorderPane bp = createLayout.setBorderPane(title, vbox, grid);
+		lessonMenu = new Scene(bp, 800, 600);
 		window.setScene(lessonMenu);
 		window.setTitle(windowTitle);
 		window.getStyle();
@@ -107,7 +106,6 @@ public class mainStreamLined extends Application {
 	 * @param myLesson the lesson we are referring to
 	 * @param prevScene the scene that came before
 	 */
-
 	public void getToTheNextScreen(Topic myTopic, Lesson myLesson, Scene prevScene) {
 		lessonIndex++; 
 		ArrayList<TextScribbles> contentAndQuestions = myLesson.getText();
@@ -147,20 +145,20 @@ public class mainStreamLined extends Application {
 	 */
 	public Scene contentPage(int lessonPageIndex, Topic myTopic, Lesson myLesson, Scene prevScene, String content)	{
 	//grid
-		GridPane grid = create.setGrid();
-		Label c = create.content(content);
+		GridPane grid = createLayout.setGrid();
+		Label c = createButton.content(content);
 		GridPane.setConstraints(c, 0, 4);
 		grid.getChildren().add(c);
 	//vBox	
-		VBox vbox = create.setVbox();
-		Button n = create.next();
-		Button p = create.prev();
+		VBox vbox = createLayout.setVbox();
+		Button n = createButton.next();
+		Button p = createButton.prev();
 		n.setOnAction(e -> getToTheNextScreen(myTopic, myLesson, currentScene)); 
 		p.setOnAction(e -> getToThePreviousScreen(prevScene));
 		vbox.getChildren().addAll(n, p);
 	//BorderPane	
-		BorderPane bp = create.setBorderPane("Learning", vbox, grid);
-		currentScene = new Scene(bp, 700, 500);
+		BorderPane bp = createLayout.setBorderPane("Learning", vbox, grid);
+		currentScene = new Scene(bp, 800, 600);
 		return currentScene;
 	}
 
@@ -172,14 +170,14 @@ public class mainStreamLined extends Application {
 		String incorrectMC3 = myQuestion.getWrong2();
 		String incorrectMC4 = myQuestion.getWrong3();
 		
-		GridPane grid = create.setGrid(); 
-		Button submit = create.submit();
-		Label questionQ = create.content(question);
-		Label response = create.content("");
+		GridPane grid = createLayout.setGrid(); 
+		Button submit = createButton.submit();
+		Label questionQ = createButton.content(question);
+		Label response = createButton.content("");
 	//add to Vbox
-		VBox vbox = create.setVbox();
-		Button n = create.next();
-		Button p = create.prev();
+		VBox vbox = createLayout.setVbox();
+		Button n = createButton.next();
+		Button p = createButton.prev();
 		n.setOnAction(e -> getToTheNextScreen(myTopic, myLesson, currentScene)); 
 		p.setOnAction(e -> getToThePreviousScreen(prevScene));
 		vbox.getChildren().addAll(n, p);
@@ -233,8 +231,8 @@ public class mainStreamLined extends Application {
 	//add objects to grid
 		grid.getChildren().addAll(questionQ, radio1, radio2, radio3, radio4, response, submit);
 	//BorderPane	
-		BorderPane bp = create.setBorderPane("Multiple Choice", vbox, grid);
-		currentScene = new Scene(bp, 700, 500);
+		BorderPane bp = createLayout.setBorderPane("Multiple Choice", vbox, grid);
+		currentScene = new Scene(bp, 800, 600);
 		return currentScene;
 	}
 	

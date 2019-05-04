@@ -5,24 +5,30 @@
 	-fx-font-weight: bold;
 	-fx-font-size: 10pt;
 }
+.radio-button {
+	-fx-text-fill: #4b4a4a;
+	-fx-font-size: 11pt;
+}
 .label {
 	-fx-background-radius: 9;
 	-fx-text-fill: #4b4a4a;
 	-fx-font-size: 11pt;
+}
+.label-title {
+	-fx-text-fill: #ffffff;
+	-fx-font-size: 14pt;
 }
 .gridpane{
 	-fx-background-color: #ffffff;
 	-fx-font-size: 12pt;
 	-fx-text-fill: #ffffff;
 }
-
 .vbox{
 	-fx-background-color: #404040;
 	-fx-font-size: 12pt;
 	-fx-font-weight: bold;
 	-fx-text-fill: #ffffff;
 }
-
 .hbox{
 	-fx-background-color: #4AC1E5;
 	-fx-font-size: 12pt;
@@ -30,6 +36,9 @@
 	-fx-text-fill: #ffffff;
 
 }
-
+#big-label{
+	-fx-font-weight: bold;
+	-fx-font-size: 13pt;
+}
 
 

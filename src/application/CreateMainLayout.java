@@ -2,13 +2,8 @@ package application;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-
 import javafx.geometry.Insets;
-import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollBar;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
@@ -20,7 +15,7 @@ public class CreateMainLayout {
 
 	public GridPane setGrid() {
 		GridPane grid = new GridPane();
-		grid.setPadding(new Insets(10,10,10,10));
+		grid.setPadding(new Insets(20,10,10,10));
 		grid.setVgap(8);
 		grid.setHgap(10);
 		return grid;
@@ -28,20 +23,20 @@ public class CreateMainLayout {
 	
 	public VBox setVbox() {
 		VBox vbox = new VBox(10);
-		vbox.setPadding(new Insets(10,10,10,10));
+		vbox.setPadding(new Insets(20,10,10,10));
 		vbox.setAlignment(Pos.CENTER);
 		return vbox;
 	}
 	
 	public HBox setHbox() {
 		HBox hbox = new HBox(10);
-		hbox.setPadding(new Insets(10,10,10,10));
+		hbox.setPadding(new Insets(20,10,10,10));
 		hbox.setAlignment(Pos.CENTER);
 		hbox.getStyleClass().add("hbox");
 		return hbox;
 	}
 	
-	public BorderPane setBorderPane(Label t, VBox right, GridPane center, VBox left, HBox bottom, HBox top) {
+	public BorderPane setBorderPane(VBox right, GridPane center, VBox left, HBox bottom, HBox top) {
 		BorderPane borderPane = new BorderPane();
 		borderPane.setPadding(new Insets(10,10,10,10));
 		
@@ -77,9 +72,9 @@ public class CreateMainLayout {
 		
 		//top
 		HBox topMenu = new HBox();
-		topMenu.setPadding(new Insets(20,20,20,20));
-		topMenu.setAlignment(Pos.TOP_LEFT);
-		topMenu.getChildren().addAll(t);
+		topMenu.setPadding(new Insets(10,10,10,10));
+		topMenu.setAlignment(Pos.CENTER_LEFT);
+		topMenu.getChildren().add(top);
 		topMenu.setPrefHeight(100);
 		topMenu.getStyleClass().add("hbox");
 		

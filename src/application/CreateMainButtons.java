@@ -31,6 +31,14 @@ public class CreateMainButtons {
 	public Label content(String input) {
 		Label content = new Label(input);
 		content.setWrapText(true);
+		content.setAlignment(Pos.CENTER);
+		return content;
+	}
+	
+	public Label title(String input) {
+		Label content = new Label(input);
+		content.setWrapText(true);
+		content.setAlignment(Pos.CENTER);
 		return content;
 	}
 	

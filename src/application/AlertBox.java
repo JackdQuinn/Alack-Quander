@@ -29,8 +29,9 @@ public class AlertBox {
 		
 		Label label = new Label();
 		label.setText(message);
+		label.setId("big-label");
 		
-		Button closeButton = new Button("Close");
+		Button closeButton = new Button("Continue");
 		closeButton.setOnAction(e -> window.close());
 		
 		/*

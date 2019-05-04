@@ -49,5 +49,13 @@
 	-fx-font-weight: bold;
 	-fx-font-size: 13pt;
 }
+.button-pageTurn{
+	-fx-background-color: #4AC1E5;
+	-fx-background-radius: 2;
+	-fx-text-fill: #ffffff;
+	-fx-font-weight: bold;
+	-fx-font-size: 10pt;
+	-fx-padding: 15pt; 
+}
 
 

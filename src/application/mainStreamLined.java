@@ -40,7 +40,7 @@ public class mainStreamLined extends Application {
 		javaTopics = reader.topics();
 		
 		/*
-		 * Create panels for BorederPane
+		 * Create panels for BorderPane
 		 * @param center is a GridPane in the center panel of BorderPane
 		 * @param right is a VBox in the right panel of BorderPane
 		 * @param left is a VBox in the right panel of BorderPane
@@ -98,7 +98,7 @@ public class mainStreamLined extends Application {
 		window.setTitle(windowTitle);
 		
 		/*
-		 * Create panels for BorederPane
+		 * Create panels for BorderPane
 		 * @param center is a GridPane in the center panel of BorderPane
 		 * @param right is a VBox in the right panel of BorderPane
 		 * @param left is a VBox in the right panel of BorderPane
@@ -197,7 +197,7 @@ public class mainStreamLined extends Application {
 	public Scene contentPage(int lessonPageIndex, Topic myTopic, Lesson myLesson, Scene prevScene, String content)	{
 
 		/*
-		 * Create panels for BorederPane
+		 * Create panels for BorderPane
 		 * @param center is a GridPane in the center panel of BorderPane
 		 * @param right is a VBox in the right panel of BorderPane
 		 * @param left is a VBox in the right panel of BorderPane
@@ -240,7 +240,7 @@ public class mainStreamLined extends Application {
 	public Scene questionPage(int lessonPageIndex, Topic myTopic, Lesson myLesson, Scene prevScene, Question myQuestion) {
 	
 		/*
-		 * Create panels for BorederPane
+		 * Create panels for BorderPane
 		 * @param center is a GridPane in the center panel of BorderPane
 		 * @param right is a VBox in the right panel of BorderPane
 		 * @param left is a VBox in the right panel of BorderPane

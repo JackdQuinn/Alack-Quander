@@ -4,8 +4,11 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
 import javafx.geometry.Insets;
+import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollBar;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
@@ -15,83 +18,91 @@ import javafx.scene.layout.VBox;
 
 public class CreateMainLayout {
 
-	String GridStyle = "Style.css";
-	String VBoxStyle = "Style.css";
-	String HBoxStyle = "Style.css";
-	
 	public GridPane setGrid() {
 		GridPane grid = new GridPane();
-		grid.setPadding(new Insets(20,20,20,20));
+		grid.setPadding(new Insets(10,10,10,10));
 		grid.setVgap(8);
 		grid.setHgap(10);
-		grid.getStylesheets().add(GridStyle);
 		return grid;
 	}
 	
 	public VBox setVbox() {
 		VBox vbox = new VBox(10);
-		vbox.setPadding(new Insets(20,20,20,20));
+		vbox.setPadding(new Insets(10,10,10,10));
 		vbox.setAlignment(Pos.CENTER);
-		vbox.getStylesheets().add(VBoxStyle);
 		return vbox;
 	}
 	
 	public HBox setHbox() {
 		HBox hbox = new HBox(10);
-		hbox.setPadding(new Insets(20,20,20,20));
+		hbox.setPadding(new Insets(10,10,10,10));
 		hbox.setAlignment(Pos.CENTER);
-		hbox.getStylesheets().add(HBoxStyle);
+		hbox.getStyleClass().add("hbox");
 		return hbox;
 	}
 	
-	public BorderPane setBorderPane(String title, VBox v, GridPane g) {
+	public BorderPane setBorderPane(Label t, VBox right, GridPane center, VBox left, HBox bottom, HBox top) {
 		BorderPane borderPane = new BorderPane();
 		borderPane.setPadding(new Insets(10,10,10,10));
-
+		
 		//center
 		GridPane centerMenu = new GridPane();
-		centerMenu.getChildren().add(g);
-		centerMenu.getStylesheets().add(GridStyle);
+		centerMenu.getChildren().addAll(center);
+		centerMenu.getStyleClass().add("gridpane");
 		
 		//left
 		VBox leftMenu = new VBox();
-
+		
+		/*
+		 * Get image and place into leftMenu at the bottom
+		 */
 		FileInputStream inputstream = null;
 			try {
 				inputstream = new FileInputStream("penn3.png");
 			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
+				System.out.println("Error");
 				e.printStackTrace();
 			} 
 				
-		Image image = new Image(inputstream); 
-		ImageView imageView = new ImageView(image);
-		imageView.setFitHeight(150); 
-		imageView.setPreserveRatio(true);
-	    leftMenu.getChildren().add(imageView);
+			Image image = new Image(inputstream); 
+			ImageView imageView = new ImageView(image);
+			imageView.setFitHeight(100); 
+			imageView.setPreserveRatio(true);
+		
+		left.getChildren().add(imageView);
+		leftMenu.setPrefWidth(100);
+		leftMenu.getStyleClass().add("vbox");
 		leftMenu.setAlignment(Pos.BOTTOM_LEFT);
-		leftMenu.getStylesheets().add(VBoxStyle);
+		leftMenu.getChildren().addAll(left);
 		
 		//top
 		HBox topMenu = new HBox();
-		Label t = new Label(title);
-		t.setWrapText(true);
+		topMenu.setPadding(new Insets(20,20,20,20));
 		topMenu.setAlignment(Pos.TOP_LEFT);
 		topMenu.getChildren().addAll(t);
-		topMenu.getStyleClass().add("menuPane");
-		topMenu.getStylesheets().add(HBoxStyle);
+		topMenu.setPrefHeight(100);
+		topMenu.getStyleClass().add("hbox");
 		
 		//right
 		VBox rightMenu = new VBox();
-		rightMenu.getChildren().add(v);
+		rightMenu.getChildren().addAll(right);
 		rightMenu.setAlignment(Pos.BOTTOM_RIGHT);
-		rightMenu.getStylesheets().add(VBoxStyle);
+		rightMenu.setPrefWidth(150);
+		rightMenu.getStyleClass().add("vbox");
+		
+		//bottom
+		HBox bottomMenu = new HBox();
+		bottomMenu.getChildren().add(bottom);
+		bottomMenu.setPrefHeight(100);
+		bottomMenu.setAlignment(Pos.BOTTOM_LEFT);
+		bottomMenu.getStyleClass().add("hbox");
 		
 		//add to borderPane
 		borderPane.setTop(topMenu);
 		borderPane.setLeft(leftMenu);
 		borderPane.setRight(rightMenu);
 		borderPane.setCenter(centerMenu);
+		//borderPane.setBottom(bottomMenu);
 		return borderPane;
 	}
 }

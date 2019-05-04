@@ -1,25 +1,35 @@
-
-.root{
-	-fx-background-color: #f0f8ff;
-	-fx-font-size: 12pt;
-}
-.window{
-	-fx-background-color: #2f4f4f;
-	-fx-font-size: 12pt;
-	-fx-font-weight: bold;
-	-fx-text-fill: #ffffff;
-}
-
-.label {
-	-fx-text-fill: #000000;
-	-fx-font-weight: bold;
-}
 .button {
-	-fx-background-color: #778899;
+	-fx-background-color: #4AC1E5;
+	-fx-background-radius: 2;
+	-fx-text-fill: #ffffff;
+	-fx-font-weight: bold;
+	-fx-font-size: 10pt;
+}
+.label {
 	-fx-background-radius: 9;
+	-fx-text-fill: #4b4a4a;
+	-fx-font-size: 11pt;
+}
+.gridpane{
+	-fx-background-color: #ffffff;
+	-fx-font-size: 12pt;
 	-fx-text-fill: #ffffff;
 }
-#menuPane {
-	-fx-background-color: #1e90ff;
+
+.vbox{
+	-fx-background-color: #404040;
 	-fx-font-size: 12pt;
+	-fx-font-weight: bold;
+	-fx-text-fill: #ffffff;
 }
+
+.hbox{
+	-fx-background-color: #4AC1E5;
+	-fx-font-size: 12pt;
+	-fx-font-weight: bold;
+	-fx-text-fill: #ffffff;
+
+}
+
+
+

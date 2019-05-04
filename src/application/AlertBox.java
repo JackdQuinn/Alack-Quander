@@ -9,15 +9,21 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 
-//block any user interaction until alert box is closed
+/*
+ * Purpose is to display an alert box telling the user if his/her answer was correct/incorrect
+ * Blocks any user interaction until the alert box is closed
+ */
 public class AlertBox {
 	
 	public static void display(String message) {
-		//need new window
+
 		Stage window = new Stage();
 		String windowStyle = "Style.css";
 		
-		window.initModality(Modality.APPLICATION_MODAL); //we are going to block input for other user events until this one is taken care of
+		/*
+		 * Block input for other user events until this one is taken care of
+		 */
+		window.initModality(Modality.APPLICATION_MODAL); 
 		
 		window.setMinWidth(400);;
 		
@@ -27,7 +33,9 @@ public class AlertBox {
 		Button closeButton = new Button("Close");
 		closeButton.setOnAction(e -> window.close());
 		
-		//always need a layout
+		/*
+		 * Set up layout for the pop up window
+		 */
 		VBox layout = new VBox(20);
 		layout.setPadding(new Insets(20,20,20,20));
 		layout.getChildren().addAll(label, closeButton);
@@ -37,8 +45,9 @@ public class AlertBox {
 		Scene scene = new Scene(layout);
 		window.setScene(scene);
 		
-		//instead of regular show...
-		//display this window and before you go back, it needs to be closed
+		/*
+		 * Instead of "show", we use "showAnd Wait" to display this window because it needs to be closed before  you can go back
+		 */
 		window.showAndWait();
 		
 	}

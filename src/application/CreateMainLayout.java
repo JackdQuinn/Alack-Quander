@@ -15,8 +15,8 @@ public class CreateMainLayout {
 
 	public GridPane setGrid() {
 		GridPane grid = new GridPane();
-		grid.setPadding(new Insets(20,10,10,10));
-		grid.setVgap(8);
+		grid.setPadding(new Insets(20,20,10,20));
+		grid.setVgap(15);
 		grid.setHgap(10);
 		return grid;
 	}

@@ -53,7 +53,7 @@ public class mainStreamLined extends Application {
 		VBox left = createLayout.setVbox();
 		HBox top = createLayout.setHbox();
 		HBox bottom = createLayout.setHbox();
-		Label title = createButton.title("Welcome!");
+		Label title = createButton.title("Welcome to Alack-Quander 591 Study Buddy!");
 		
 		top.getChildren().add(title);
 	    title.getStyleClass().add("label-title");
@@ -130,6 +130,7 @@ public class mainStreamLined extends Application {
 			for (Lesson temp : lessons) {
 				Button btnLesson = new Button(temp.getLesson());
 				btnLesson.setOnAction(e -> getToTheNextScreen(currentTopic, temp, lessonMenu)); // brings you to new page
+				btnLesson.getStyleClass().add("button-transparent");
 				GridPane.setConstraints(btnLesson, r, c);
 				//Place buttons in grid
 				c++;
@@ -166,12 +167,10 @@ public class mainStreamLined extends Application {
 			if (scribbles instanceof Content) {
 				currentScene = contentPage(lessonIndex, myTopic, myLesson, prevScene, ((Content) scribbles).getText());
 				window.setScene(currentScene);
-				// System.out.println("go go gadget IF");
 			} else {
 				currentScene = questionPage(lessonIndex, myTopic, myLesson, prevScene, ((Question) scribbles));
 				window.setScene(currentScene);
 				window.setTitle(windowTitle);
-				// System.out.println("go go gadget Else");
 			}
 		}
 		//no next screen in lesson, return to lesson menu
@@ -284,8 +283,8 @@ public class mainStreamLined extends Application {
 		
 		/*
 		 * Create radio buttons for answer choices.
-		 * We know correct answer is placed in radio1, so if radio1 is selected then AlertBox will display "Correct, good job!"
-		 * Otherwise, AlertBox will display "Incorrect, please try again."
+		 * Correct answer is placed in radio1.
+		 * AlertBox will tell the user if answer chosen is correct or incorrect
 		 */
 		RadioButton radio1, radio2, radio3, radio4;
 		radio1=new RadioButton(correctMC1);
@@ -314,22 +313,25 @@ public class mainStreamLined extends Application {
 		radio3.setOnAction(e -> submit.setDisable(false) );
 		radio4.setOnAction(e -> submit.setDisable(false) );
 		submit.setOnAction(e -> {
-			if (radio1.isSelected()) {
-				AlertBox.display("Correct, good job!"); //alert box pop up to tell you if you were correct or to try again
-			}
-			else {
-				AlertBox.display("Incorrect, please try again.");
-			}           
+		//This if statement determines parameter for display method in AlertBox
+		//(correct if radio1 is chosen, otherwise incorrect)
+		if (radio1.isSelected()) {	
+			AlertBox.display("Correct, good job!"); 
+		}
+		else {
+			AlertBox.display("Incorrect, please try again.");
+		}           
 		});
 		
-		//To avoid correct answer always appearing as the first answer choice,
-		//Arrange radioButtons in random order to place in grid.
+		//To avoid correct answer always appearing as the first answer choice, 
+		//put answer choices in ArrayList and then shuffle.
+		//This arranges radioButtons in random order before placing on center panel.
 		ArrayList<RadioButton> answerRadio = new ArrayList<RadioButton>();
-		answerRadio.add(radio1);
-		answerRadio.add(radio2);
-		answerRadio.add(radio3);
-		answerRadio.add(radio4);
-		Collections.shuffle(answerRadio);
+			answerRadio.add(radio1);
+			answerRadio.add(radio2);
+			answerRadio.add(radio3);
+			answerRadio.add(radio4);
+			Collections.shuffle(answerRadio);
 		
 		//Place answer choices in center panel
 		GridPane.setConstraints(answerRadio.get(0),0,2);

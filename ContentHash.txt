@@ -1,11 +1,11 @@
 Type0  #Module1 #Lesson2#Page3#Content4 #QType 5#Question 6#Correct Answer7#Wrong Answer8#Wrong Answer9#Wrong Answer10#FIB1#FIB2
-c #Basics  	#intro 	#1    #Java is a general-purpose computer-programming language originally developed by James Gosling at Sun Microsystems and released in 1995.# #######
-c #Basics  	#intro 	#1    #Java gained widespread popularity for being Platform Independent, which means that you only need to write the program once to be able to run it on a number of different platforms!########
-c #Basics  	#intro 	#1    #Today java is one of the most popular languages in the world with over 9 million developers########
-q #Basics  	#intro 	#2    #        	#MC     #To distribute your application to different platforms, how many Java versions do you need to create?#Just one version#Two versions#One for each platform#42##
-c #Basics  	#intro  #3    #Java runs on more than 3 billion devices.  Java is used to develop apps for Google's Android OS, various Desktop Applications, Web Applications, Enterprise Applications (i.e. trading, inventory), and many more!########
-c #Basics  	#intro  #3    #Learn, practice, and then join the huge community of developers around the world creating the content of the future!########
-q #Basics  	#intro  #4    #        	#MC     #"Which one of the following statements is true?"#Java has a huge developer community#Java is used only in web and mobile applications#Java is used only in NASA's space related applications#Java was developed by Starbuck's for their web development needs######
+c #Basics  	#Intro 	#1    #Java is a general-purpose computer-programming language originally developed by James Gosling at Sun Microsystems and released in 1995.# #######
+c #Basics  	#Intro 	#1    #Java gained widespread popularity for being Platform Independent, which means that you only need to write the program once to be able to run it on a number of different platforms!########
+c #Basics  	#Intro 	#1    #Today java is one of the most popular languages in the world with over 9 million developers########
+q #Basics  	#Intro 	#2    #        	#MC     #To distribute your application to different platforms, how many Java versions do you need to create?#Just one version#Two versions#One for each platform#42##
+c #Basics  	#Intro  #3    #Java runs on more than 3 billion devices.  Java is used to develop apps for Google's Android OS, various Desktop Applications, Web Applications, Enterprise Applications (i.e. trading, inventory), and many more!########
+c #Basics  	#Intro  #3    #Learn, practice, and then join the huge community of developers around the world creating the content of the future!########
+q #Basics  	#Intro  #4    #        	#MC     #"Which one of the following statements is true?"#Java has a huge developer community#Java is used only in web and mobile applications#Java is used only in NASA's space related applications#Java was developed by Starbuck's for their web development needs######
 c#Basics#Hello World#1#Your First Java Program, Let's start by creating a simple program printing “Hello World” to the screen.#
 c#Basics#Hello World#1#Hello World was the first message displayed by the Macintosh personal computer in 1984 and is the traditional first program written when learning to code.#
 c#Basics#Hello World#1# class Java101 {public static void main(String[ ] args) {System.out.println("Hello World");}}#

@@ -3,10 +3,12 @@ package application;
 import java.util.ArrayList;
 import java.util.Collections;
 import javafx.application.Application;
+import javafx.geometry.Orientation;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.ScrollBar;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -26,6 +28,7 @@ public class mainStreamLined extends Application {
 		String windowTitle = "Alack-Quander 591 Study Buddy";
 		Reader reader = new Reader();
 		String style = "Style.css";
+		
 		
 	//Topic Menu
 	@Override
@@ -81,7 +84,7 @@ public class mainStreamLined extends Application {
 		 * Add panels to BorderPane and set scene/window
 		 */
 		BorderPane bp = createLayout.setBorderPane(right, center, left, top);
-		topicMenu = new Scene(bp, 900, 800);
+		topicMenu = new Scene(bp, 800, 600);
 		window.setScene(topicMenu);
 		topicMenu.getStylesheets().add(style);
 		window.setTitle(windowTitle);
@@ -141,7 +144,7 @@ public class mainStreamLined extends Application {
 		 * Add panels to BorderPane and set scene/window
 		 */
 		BorderPane bp = createLayout.setBorderPane(right, center, left, top);
-		lessonMenu = new Scene(bp, 900, 800);
+		lessonMenu = new Scene(bp, 800, 600);
 		window.setScene(lessonMenu);
 		lessonMenu.getStylesheets().add(style);
 		window.setTitle(windowTitle);
@@ -213,6 +216,7 @@ public class mainStreamLined extends Application {
 	    
 	    //Create label for content text. Place in center panel.
 		Label c = createButton.content(content);
+		
 		GridPane.setConstraints(c, 2, 2);
 		center.getChildren().add(c);
 		
@@ -227,7 +231,7 @@ public class mainStreamLined extends Application {
 		 * Add panels to BorderPane and set scene
 		 */
 	    BorderPane bp = createLayout.setBorderPane(right, center, left, top);
-	    currentScene = new Scene(bp, 900, 800);
+	    currentScene = new Scene(bp, 800, 600);
 		currentScene.getStylesheets().add(style);
 		return currentScene;
 	}
@@ -270,7 +274,8 @@ public class mainStreamLined extends Application {
 		Button submit = createButton.submit();
 		Label response = createButton.content("");
 		Label question = createButton.question(myQuestion.getQuestion());
-		
+		question.setWrapText(true);
+
 		/*
 		 * Create radio buttons for answer choices.
 		 * Correct answer is placed in radio1.
@@ -335,7 +340,7 @@ public class mainStreamLined extends Application {
 		 * Add panels to BorderPane and set scene
 		 */
 		BorderPane bp = createLayout.setBorderPane(right, center, left, top);
-		currentScene = new Scene(bp, 900, 800);
+		currentScene = new Scene(bp, 800, 600);
 		currentScene.getStylesheets().add(style);
 		return currentScene;
 	}

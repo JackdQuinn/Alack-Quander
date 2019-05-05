@@ -9,6 +9,7 @@
 .radio-button {
 	-fx-text-fill: #4b4a4a;
 	-fx-font-size: 11pt;
+	-fx-background-color: #F9F9F9;
 }
 .label {
 	-fx-background-radius: 9;

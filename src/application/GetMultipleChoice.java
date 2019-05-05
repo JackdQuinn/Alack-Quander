@@ -16,12 +16,9 @@ public class GetMultipleChoice {
 	CreateMainLayout createLayout;
 	CreateMainButtons createButton;
 	
-	public GridPane setMC(String question, String correctMC1, String incorrectMC2, String incorrectMC3, String incorrectMC4) {
-		
-		GridPane grid = new GridPane();
-		grid.setPadding(new Insets(20, 20, 20, 20));
-		grid.setVgap(8);;
-		grid.setHgap(10);
+	public GridPane setMC(String question, String correctMC1, String incorrectMC2, 
+			String incorrectMC3, String incorrectMC4) {
+
 		
 		Button submit = createButton.submit();
 		Label response = createButton.content("");
@@ -78,6 +75,7 @@ public class GetMultipleChoice {
 		answerRadio.add(radio4);
 		Collections.shuffle(answerRadio);
 		
+		GridPane grid = new GridPane();
 		GridPane.setConstraints(qLabel,2,2);
 		GridPane.setConstraints(answerRadio.get(0),2,4);
 		GridPane.setConstraints(answerRadio.get(1),2,5);
@@ -86,6 +84,9 @@ public class GetMultipleChoice {
 		GridPane.setConstraints(submit,2,9);
 		GridPane.setConstraints(response,2,10);
 		
+		grid.setPadding(new Insets(20, 20, 20, 20));
+		grid.setVgap(8);;
+		grid.setHgap(10);
 		grid.getChildren().addAll(qLabel, response, radio1, radio2, radio3, radio4, submit);
 
 		return grid;

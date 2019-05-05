@@ -32,6 +32,7 @@ public class CreateMainButtons {
 		Label content = new Label(input);
 		content.setWrapText(true);
 		content.setAlignment(Pos.CENTER);
+		content.setMaxWidth(500);
 		return content;
 	}
 	
@@ -39,20 +40,16 @@ public class CreateMainButtons {
 		Label content = new Label(input);
 		content.setWrapText(true);
 		content.setAlignment(Pos.CENTER);
+		content.setMaxWidth(500);
 		return content;
 	}
 	
 	public Label question(String input) {
 		Label question = new Label(input);
 		question.setWrapText(true);
+		question.setMaxWidth(500);
 		return question;
 	}
-	
-//	public TextField shortAnswer() {
-//		TextField shortAnswer = new TextField();
-//		shortAnswer.setPromptText("Write Here...");
-//		return shortAnswer;
-//	}
 	
 	public Button topicButton(String buttonName) {
 		Button button = new Button(buttonName);

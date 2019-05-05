@@ -3,7 +3,10 @@ package application;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import javafx.geometry.Insets;
+import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
+import javafx.scene.control.ScrollBar;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
@@ -47,7 +50,9 @@ public class CreateMainLayout {
 		centerMenu.getChildren().addAll(center);
 		centerMenu.setAlignment(Pos.TOP_LEFT);
 		centerMenu.getStyleClass().add("gridpane");
-
+		ScrollPane sc = new ScrollPane();
+		sc.setContent(centerMenu);
+		sc.setContent(centerMenu);
 		
 		//top
 		GridPane topMenu = new GridPane();
@@ -96,7 +101,7 @@ public class CreateMainLayout {
 		borderPane.setTop(topMenu);
 		borderPane.setLeft(leftMenu);
 		borderPane.setRight(rightMenu);
-		borderPane.setCenter(centerMenu);
+		borderPane.setCenter(sc);
 		return borderPane;
 	}
 }

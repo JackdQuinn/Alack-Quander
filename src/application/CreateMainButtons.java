@@ -1,19 +1,50 @@
 package application;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.shape.Circle;
 
 public class CreateMainButtons {
 	
 	public Button next() {
-		Button next = new Button("Next");
+		Button next = new Button();
+		FileInputStream inputstream = null;
+		try {
+			inputstream = new FileInputStream("RightArrow.png");
+		} catch (FileNotFoundException e) {
+			System.out.println("Error");
+			e.printStackTrace();
+		} 
+		Image image = new Image(inputstream); 
+		ImageView imageView = new ImageView(image);
+		imageView.setPreserveRatio(true);
+		next.setGraphic(imageView);
+		imageView.setFitHeight(50); 
+		imageView.setFitWidth(50);
 		return next;
 	}
 	
 	public Button prev() {
-		Button previous = new Button("Previous");
+		Button previous = new Button();
+		FileInputStream inputstream = null;
+		try {
+			inputstream = new FileInputStream("LeftArrow.png");
+		} catch (FileNotFoundException e) {
+			System.out.println("Error");
+			e.printStackTrace();
+		} 
+		Image image = new Image(inputstream); 
+		ImageView imageView = new ImageView(image);
+		imageView.setPreserveRatio(true);
+		previous.setGraphic(imageView);
+		imageView.setFitHeight(50); 
+		imageView.setFitWidth(50);
 		return previous;
 	}
 	

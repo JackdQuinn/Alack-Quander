@@ -3,12 +3,10 @@ package application;
 import java.util.ArrayList;
 import java.util.Collections;
 import javafx.application.Application;
-import javafx.geometry.Orientation;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
-import javafx.scene.control.ScrollBar;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -216,9 +214,9 @@ public class mainStreamLined extends Application {
 	    
 	    //Create label for content text. Place in center panel.
 		Label c = createButton.content(content);
-		
 		GridPane.setConstraints(c, 2, 2);
 		center.getChildren().add(c);
+		
 		
 		Button n = createButton.next();
 		Button p = createButton.prev();

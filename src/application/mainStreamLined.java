@@ -26,7 +26,7 @@ public class mainStreamLined extends Application {
 		String windowTitle = "Alack-Quander 591 Study Buddy";
 		Reader reader = new Reader();
 		String style = "Style.css";
-		
+		String lastPageViewed = null;
 		
 	//Topic Menu
 	@Override
@@ -35,7 +35,7 @@ public class mainStreamLined extends Application {
 		createButton = new CreateMainButtons();
 		createLayout = new CreateMainLayout();
 		javaTopics = reader.topics();
-		
+
 		/*
 		 * Create panels for BorderPane
 		 * @param center is a GridPane in the center panel of BorderPane
@@ -50,6 +50,7 @@ public class mainStreamLined extends Application {
 		VBox left = createLayout.setVbox();
 		GridPane top = createLayout.setGrid();
 		Label title = createButton.title("Welcome to Alack-Quander 591 Study Buddy!");
+		
 		
 		GridPane.setConstraints(title, 8, 1);
 		top.getChildren().add(title);
@@ -94,6 +95,8 @@ public class mainStreamLined extends Application {
 		window = primaryStage;
 		window.setTitle(windowTitle);
 		
+		
+		
 		/*
 		 * Create panels for BorderPane
 		 * @param center is a GridPane in the center panel of BorderPane
@@ -109,6 +112,8 @@ public class mainStreamLined extends Application {
 		GridPane top = createLayout.setGrid();
 		String t = "Topic: " + currentTopic.getTopic();
 		Label title = createButton.title(t);
+		
+
 		
 		title.getStyleClass().add("label-title");
 		GridPane.setConstraints(title, 8, 1);
@@ -137,7 +142,7 @@ public class mainStreamLined extends Application {
 				}
 			center.getChildren().add(btnLesson);
 			}
-		
+
 		/*
 		 * Add panels to BorderPane and set scene/window
 		 */
@@ -225,6 +230,10 @@ public class mainStreamLined extends Application {
 	    right.getChildren().add(n);
 	    left.getChildren().add(p);
 
+	    String lastPageViewed = myTopic + ": " + myLesson;
+		Tracking trackPage = new Tracking();
+		trackPage.getLastPage(lastPageViewed);
+		
 	    /*
 		 * Add panels to BorderPane and set scene
 		 */
@@ -273,7 +282,8 @@ public class mainStreamLined extends Application {
 		Label response = createButton.content("");
 		Label question = createButton.question(myQuestion.getQuestion());
 		question.setWrapText(true);
-
+		
+		
 		/*
 		 * Create radio buttons for answer choices.
 		 * Correct answer is placed in radio1.
@@ -334,6 +344,9 @@ public class mainStreamLined extends Application {
 		GridPane.setConstraints(response,2,10);
 		center.getChildren().addAll(question, radio1, radio2, radio3, radio4, response, submit);
 		
+		String lastPageViewed = myTopic + ": " + myLesson;
+		Tracking trackPage = new Tracking();
+		trackPage.getLastPage(lastPageViewed);
 		/*
 		 * Add panels to BorderPane and set scene
 		 */

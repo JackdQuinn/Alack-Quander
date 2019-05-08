@@ -1,11 +1,7 @@
 package application;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Scanner;
-
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -92,28 +88,7 @@ public class Screens {
 	public void goToLessons(Stage primaryStage, Topic currentTopic) {
 		window = primaryStage;
 		window.setTitle(windowTitle);
-		ArrayList<Integer> xpArray = new ArrayList <Integer>();
-		File file = new File("xp.txt");
-		
-		int xp = 0;
-		try {
-			Scanner s = new Scanner(file);
-			while (s.hasNextLine()) {
-				int point = s.nextInt();
-				xpArray.add(point);
-			}
-			
-			for (Integer xpNum: xpArray) {
-				xp += xpNum;
-			}
-			
-		} catch (FileNotFoundException e1) {
-			e1.printStackTrace();
-		}
-		
-		String xpS = Integer.toString(xp);
-		Label xpL = createButton.content(xpS);
-		
+
 		/*
 		 * Create panels for BorderPane
 		 * @param center is a GridPane in the center panel of BorderPane
@@ -130,8 +105,10 @@ public class Screens {
 		String t = "Topic: " + currentTopic.getTopic();
 		Label title = createButton.title(t);
 		
-		GridPane.setConstraints(xpL, 0, 10);
-		center.getChildren().add(xpL);
+		String currentXP = xpTracker.read();
+		Label xp = createButton.content("XP: " + currentXP);
+		GridPane.setConstraints(xp, 10, 0);
+		center.getChildren().add(xp);
 		
 		title.getStyleClass().add("label-title");
 		GridPane.setConstraints(title, 8, 1);
@@ -160,9 +137,7 @@ public class Screens {
 				}
 			center.getChildren().add(btnLesson);
 			}
-			
-
-			
+				
 		/*
 		 * Add panels to BorderPane and set scene/window
 		 */
@@ -335,7 +310,7 @@ public class Screens {
 		//(correct if radio1 is chosen, otherwise incorrect)
 		if (radio1.isSelected()) {	
 			AlertBox.display("Correct, good job!"); 
-			xpTracker.getPoints(100);
+			xpTracker.write(100);
 		}
 		else {
 			AlertBox.display("Incorrect, please try again.");

@@ -1,8 +1,11 @@
 package application;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Collections;
-import javafx.application.Application;
+import java.util.Scanner;
+
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -13,29 +16,26 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class mainStreamLined extends Application {
-
-	//State variables	
-		Stage window;
-		Scene beforeScene, afterScene, currentScene, topicMenu, lessonMenu;
-		CreateMainButtons createButton;
-		CreateMainLayout createLayout;
-		GetMultipleChoice multipleChoice;
-		int lessonIndex;
-		ArrayList<Topic> javaTopics;
-		String windowTitle = "Alack-Quander 591 Study Buddy";
-		Reader reader = new Reader();
-		String style = "Style.css";
-		String lastPageViewed = null;
-		
+public class Screens {
+	Stage window;
+	Scene beforeScene, afterScene, currentScene, topicMenu, lessonMenu;
+	CreateMainButtons createButton;
+	CreateMainLayout createLayout;
+	int lessonIndex;
+	ArrayList<Topic> javaTopics;
+	String windowTitle = "Alack-Quander 591 Study Buddy";
+	Reader reader = new Reader();
+	String style = "Style.css";
+	Tracking xpTracker = new Tracking();
+	
 	//Topic Menu
-	@Override
-	public void start(Stage primaryStage) throws Exception {
+	public void goToTopics(Stage primaryStage) {
+
 		window = primaryStage;
 		createButton = new CreateMainButtons();
 		createLayout = new CreateMainLayout();
 		javaTopics = reader.topics();
-
+	
 		/*
 		 * Create panels for BorderPane
 		 * @param center is a GridPane in the center panel of BorderPane
@@ -50,8 +50,6 @@ public class mainStreamLined extends Application {
 		VBox left = createLayout.setVbox();
 		GridPane top = createLayout.setGrid();
 		Label title = createButton.title("Welcome to Alack-Quander 591 Study Buddy!");
-		
-		
 		GridPane.setConstraints(title, 8, 1);
 		top.getChildren().add(title);
 	    title.getStyleClass().add("label-title");
@@ -89,13 +87,32 @@ public class mainStreamLined extends Application {
 		window.setTitle(windowTitle);
 		window.show();
 	}
-	
+		
 	//Lesson menu
 	public void goToLessons(Stage primaryStage, Topic currentTopic) {
 		window = primaryStage;
 		window.setTitle(windowTitle);
+		ArrayList<Integer> xpArray = new ArrayList <Integer>();
+		File file = new File("xp.txt");
 		
+		int xp = 0;
+		try {
+			Scanner s = new Scanner(file);
+			while (s.hasNextLine()) {
+				int point = s.nextInt();
+				xpArray.add(point);
+			}
+			
+			for (Integer xpNum: xpArray) {
+				xp += xpNum;
+			}
+			
+		} catch (FileNotFoundException e1) {
+			e1.printStackTrace();
+		}
 		
+		String xpS = Integer.toString(xp);
+		Label xpL = createButton.content(xpS);
 		
 		/*
 		 * Create panels for BorderPane
@@ -113,7 +130,8 @@ public class mainStreamLined extends Application {
 		String t = "Topic: " + currentTopic.getTopic();
 		Label title = createButton.title(t);
 		
-
+		GridPane.setConstraints(xpL, 0, 10);
+		center.getChildren().add(xpL);
 		
 		title.getStyleClass().add("label-title");
 		GridPane.setConstraints(title, 8, 1);
@@ -142,7 +160,9 @@ public class mainStreamLined extends Application {
 				}
 			center.getChildren().add(btnLesson);
 			}
+			
 
+			
 		/*
 		 * Add panels to BorderPane and set scene/window
 		 */
@@ -229,10 +249,6 @@ public class mainStreamLined extends Application {
 		p.setOnAction(e -> getToThePreviousScreen(prevScene));
 	    right.getChildren().add(n);
 	    left.getChildren().add(p);
-
-	    String lastPageViewed = myTopic + ": " + myLesson;
-		Tracking trackPage = new Tracking();
-		trackPage.getLastPage(lastPageViewed);
 		
 	    /*
 		 * Add panels to BorderPane and set scene
@@ -283,7 +299,6 @@ public class mainStreamLined extends Application {
 		Label question = createButton.question(myQuestion.getQuestion());
 		question.setWrapText(true);
 		
-		
 		/*
 		 * Create radio buttons for answer choices.
 		 * Correct answer is placed in radio1.
@@ -320,6 +335,7 @@ public class mainStreamLined extends Application {
 		//(correct if radio1 is chosen, otherwise incorrect)
 		if (radio1.isSelected()) {	
 			AlertBox.display("Correct, good job!"); 
+			xpTracker.getPoints(100);
 		}
 		else {
 			AlertBox.display("Incorrect, please try again.");
@@ -344,9 +360,6 @@ public class mainStreamLined extends Application {
 		GridPane.setConstraints(response,2,10);
 		center.getChildren().addAll(question, radio1, radio2, radio3, radio4, response, submit);
 		
-		String lastPageViewed = myTopic + ": " + myLesson;
-		Tracking trackPage = new Tracking();
-		trackPage.getLastPage(lastPageViewed);
 		/*
 		 * Add panels to BorderPane and set scene
 		 */
@@ -355,10 +368,5 @@ public class mainStreamLined extends Application {
 		currentScene.getStylesheets().add(style);
 		return currentScene;
 	}
-	
-	public static void main(String[] args) {
-		launch(args);
-	}
-
 	
 }

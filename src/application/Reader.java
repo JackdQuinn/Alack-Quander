@@ -53,9 +53,9 @@ public class Reader {
 
 					// check to see if lesson already exists inside the Topic Object
 					myLesson = myTopic.addLesson(lessonText.trim());
-					String type = column[0];
-					String module = column[1];
-					String page = column[3];
+					//String type = column[0];
+					//String module = column[1];
+					//String page = column[3];
 				}
 				
 				// content fields
@@ -67,7 +67,7 @@ public class Reader {
 					// System.out.println("c");
 				} else if (column.length >= 11) {
 					// question fields
-					String questionType = column[5];
+					//String questionType = column[5];
 					String question = column[6];
 					//System.out.println(question);
 					String correctAnswer = column[7];

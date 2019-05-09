@@ -52,8 +52,8 @@ public class Screens {
 		
 		//center: add buttons for each Topic to grid using ArrayList of Topics
 		lessonIndex = 0;
-		int r = 3;
-		int c = 4;
+		int r = 4;
+		int c = 3;
 		for (Topic temp : javaTopics) {
 			Button btnTopic = createButton.topicButton(temp.getTopic());
 			//Brings you to list of lessons for the chosen Topic
@@ -62,10 +62,11 @@ public class Screens {
 			//Place buttons in grid
 			c++;
 			if (c > 10) {
-				c = 4;
+				c = 3;
 				r++;
 		}
 		center.getChildren().add(btnTopic);
+		btnTopic.setId("round-button");
 		}
 		
 		Label menu = createButton.title("Lesson: ");

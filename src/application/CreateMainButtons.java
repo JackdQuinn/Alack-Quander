@@ -85,7 +85,7 @@ public class CreateMainButtons {
 	public Button topicButton(String buttonName) {
 		Button button = new Button(buttonName);
 		button.setWrapText(true);
-		double r=40;
+		double r=53;
 		button.setShape(new Circle(r));
 		button.setMinSize(2*r, 2*r);
 		button.setMaxSize(2*r, 2*r);

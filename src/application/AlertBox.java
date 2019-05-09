@@ -22,8 +22,8 @@ public class AlertBox {
 		if(message.equals("Correct, good job!")) {
 			xp++;
 		}
-		String xpS = Integer.toString(xp);
-		Label xpLabel = new Label("You have " + xpS + " XP!");
+		//String xpS = Integer.toString(xp);
+		//Label xpLabel = new Label("You have " + xpS + " XP!");
 		
 		//Blocks any user interaction in main window until user presses continue (or closes alert box)
 		window.initModality(Modality.APPLICATION_MODAL); 
@@ -44,7 +44,8 @@ public class AlertBox {
 		//Set up layout for the pop up window
 		VBox layout = new VBox(20);
 		layout.setPadding(new Insets(10,10,10,10));
-		layout.getChildren().addAll(label, xpLabel, closeButton);
+		layout.getChildren().addAll(label, closeButton);
+		//layout.getChildren().addAll(xpLabel);
 		layout.setAlignment(Pos.CENTER);
 		layout.getStylesheets().add(windowStyle);
 		

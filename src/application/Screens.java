@@ -105,14 +105,7 @@ public class Screens {
 		String t = "Topic: " + currentTopic.getTopic();
 		Label title = createButton.title(t);
 		
-		String currentXP = xpTracker.read();
-		Label xp = createButton.content("XP: " + currentXP);
-		GridPane.setConstraints(xp, 10, 0);
-		center.getChildren().add(xp);
-		
-		title.getStyleClass().add("label-title");
-		GridPane.setConstraints(title, 8, 1);
-		top.getChildren().add(title);
+
 		
 		//Create button to bring you to previous page. Place in right panel.
 		Button p = createButton.prev();
@@ -137,7 +130,13 @@ public class Screens {
 				}
 			center.getChildren().add(btnLesson);
 			}
-				
+	
+		
+		title.getStyleClass().add("label-title");
+		GridPane.setConstraints(title, 8, 1);
+		top.getChildren().add(title);
+			
+		
 		/*
 		 * Add panels to BorderPane and set scene/window
 		 */
@@ -310,7 +309,7 @@ public class Screens {
 		//(correct if radio1 is chosen, otherwise incorrect)
 		if (radio1.isSelected()) {	
 			AlertBox.display("Correct, good job!"); 
-			xpTracker.write(100);
+			xpTracker.writeScore("100");
 		}
 		else {
 			AlertBox.display("Incorrect, please try again.");

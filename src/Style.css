@@ -48,6 +48,7 @@
 	-fx-font-weight: bold;
 	-fx-font-size: 13pt;
 }
+
 #round-button {
 	-fx-background-radius: 9;
 	-fx-text-fill: #ffffff;

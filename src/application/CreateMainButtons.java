@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Circle;
@@ -91,5 +92,11 @@ public class CreateMainButtons {
 		button.setMaxSize(2*r, 2*r);
 		button.setAlignment(Pos.CENTER);
 		return button;
+	}
+	public TextField shortAnswer() {
+		TextField content = new TextField("");
+		content.setAlignment(Pos.CENTER);
+		content.setMaxWidth(500);
+		return content;
 	}
 }

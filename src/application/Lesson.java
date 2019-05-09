@@ -30,8 +30,8 @@ public void setText(ArrayList<TextScribbles> text) {
  * @param wrong3
  * @param lesson -- not sure why i put this here
  */
-public void addQuestion(String question, String answer, String wrong1, String wrong2, String wrong3) {
-	text.add(new Question(question, answer, wrong1, wrong2, wrong3));
+public void addQuestion(String questionType, String question, String answer, String wrong1, String wrong2, String wrong3) {
+	text.add(new Question(questionType, question, answer, wrong1, wrong2, wrong3));
 	
 }
 

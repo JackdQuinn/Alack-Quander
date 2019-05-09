@@ -3,10 +3,12 @@ package application;
 import java.util.ArrayList;
 import java.util.Collections;
 import javafx.application.Application;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -26,6 +28,7 @@ public class mainStreamLined extends Application {
 		String windowTitle = "Alack-Quander 591 Study Buddy";
 		Reader reader = new Reader();
 		String style = "Style.css";
+		
 		
 		
 	//Topic Menu
@@ -50,9 +53,12 @@ public class mainStreamLined extends Application {
 		VBox left = createLayout.setVbox();
 		GridPane top = createLayout.setGrid();
 		Label title = createButton.title("Welcome to Alack-Quander 591 Study Buddy!");
+		Label progressTracker = createButton.title("pick up from the Topic: " + reader.getLastTopic() + " and Lesson: " + reader.getLastLesson());
 		
 		GridPane.setConstraints(title, 8, 1);
-		top.getChildren().add(title);
+		GridPane.setConstraints(progressTracker, 8, 5);
+		
+		top.getChildren().addAll(title,progressTracker);
 	    title.getStyleClass().add("label-title");
 		
 		//center: add buttons for each Topic to grid using ArrayList of Topics
@@ -164,7 +170,13 @@ public class mainStreamLined extends Application {
 			if (scribbles instanceof Content) {
 				currentScene = contentPage(lessonIndex, myTopic, myLesson, prevScene, ((Content) scribbles).getText());
 				window.setScene(currentScene);
-			} else {
+			}else if(scribbles instanceof Question && ((Question) scribbles).getQuestionType().equalsIgnoreCase("FIB")){
+				currentScene = questionFIBpage(lessonIndex, myTopic, myLesson, prevScene, ((Question) scribbles));
+				window.setScene(currentScene);
+				window.setTitle(windowTitle);
+				
+			}
+			else {
 				currentScene = questionPage(lessonIndex, myTopic, myLesson, prevScene, ((Question) scribbles));
 				window.setScene(currentScene);
 				window.setTitle(windowTitle);
@@ -309,7 +321,8 @@ public class mainStreamLined extends Application {
 		//This if statement determines parameter for display method in AlertBox
 		//(correct if radio1 is chosen, otherwise incorrect)
 		if (radio1.isSelected()) {	
-			AlertBox.display("Correct, good job!"); 
+			AlertBox.display("Correct, good job!");
+			reader.tasukette(myTopic.getTopic(), myLesson.getLesson());
 		}
 		else {
 			AlertBox.display("Incorrect, please try again.");
@@ -342,7 +355,86 @@ public class mainStreamLined extends Application {
 		currentScene.getStylesheets().add(style);
 		return currentScene;
 	}
-	
+	public Scene questionFIBpage(int lessonPageIndex, Topic myTopic, Lesson myLesson, Scene prevScene, Question myQuestion) {
+		GridPane center = createLayout.setGrid();
+		VBox right = createLayout.setVbox();
+		VBox left = createLayout.setVbox();
+		GridPane top = createLayout.setGrid();	
+		
+		String lesson = myLesson.getLesson();
+	    Label title = createButton.title("Lesson: " + lesson);
+	    top.getChildren().add(title);
+	    GridPane.setConstraints(title, 8, 1);
+	    title.getStyleClass().add("label-title");
+		
+		//Create button to bring you to previous/next page. Place in right panel.
+		Button n = createButton.next();
+		Button p = createButton.prev();
+		n.setOnAction(e -> getToTheNextScreen(myTopic, myLesson, currentScene)); 
+		p.setOnAction(e -> getToThePreviousScreen(prevScene));
+	    right.getChildren().add(n);
+	    left.getChildren().add(p);
+		
+		int numberOfBlanks = 1;
+		String[] correctFIB = myQuestion.getAnswer().split(",");
+		TextField[] userText = new TextField[correctFIB.length];
+		
+		Label q = createButton.content(myQuestion.getQuestion());
+		q.setWrapText(true);
+		center.getChildren().addAll(q);
+		int i;
+		for(i = 0; i < correctFIB.length; i++) {
+			Label FIB1 = createButton.content("Fill in the Blank " + i + ": ");
+			userText[i] = createButton.shortAnswer();
+			center.getChildren().addAll(FIB1,userText[i]);
+			GridPane.setConstraints(FIB1,0,(5+i*2));
+			GridPane.setConstraints(userText[i],0,6+i*2);
+		}
+		
+		
+		Button submit = createButton.submit();
+		Label prompt = createButton.content("Answer:");
+		submit.setOnAction(e -> {
+			//This if statement determines parameter for display method in AlertBox
+			//(correct if radio1 is chosen, otherwise incorrect)
+			boolean correct = true;
+			for(int j = 0; j<userText.length; j++) {
+				if (!correctFIB[j].trim().equals(userText[j].getText().trim())){
+					correct = false;
+				}
+			}
+			
+			if (correct) {	
+				AlertBox.display("Correct, good job!");
+				reader.tasukette(myTopic.getTopic(), myLesson.getLesson());
+				
+			}
+			else {
+				AlertBox.display("Incorrect, please try again.");
+			}           
+			});
+		
+		
+		
+		center.getChildren().addAll(submit,prompt);
+		GridPane.setConstraints(title,0,0);
+		GridPane.setConstraints(q,0,1);
+		GridPane.setConstraints(prompt,0,3);
+			
+		GridPane.setConstraints(submit,0,10+i*2);
+			
+				
+		center.setPadding(new Insets(20, 20, 20, 20));
+		center.setVgap(8);
+		center.setHgap(10);
+		center.getStylesheets().add("Style.css");
+		
+		BorderPane bp = createLayout.setBorderPane(right, center, left, top);
+		currentScene = new Scene(bp, 800, 600);
+		currentScene.getStylesheets().add(style);
+		return currentScene;
+	}
+
 	public static void main(String[] args) {
 		launch(args);
 	}

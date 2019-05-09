@@ -1,7 +1,7 @@
 package application;
 
 public class Question extends TextScribbles {
-	private String question, answer, wrong1, wrong2, wrong3;
+	private String questionType, question, answer, wrong1, wrong2, wrong3;
 
 //views will track number of times a question is scene, Correctedness is an integer either positive or negative based on User performance on this question.
 
@@ -9,6 +9,7 @@ public class Question extends TextScribbles {
 
 /**
  * Constructor: 	
+ * @param questionType - FIB vs MC
  * @param question
  * @param answer
  * @param wrong1
@@ -16,18 +17,25 @@ public class Question extends TextScribbles {
  * @param wrong3
  * @param lesson
  */
-public Question(String question, String answer, String wrong1, String wrong2, String wrong3) {
+public Question(String questionType, String question, String answer, String wrong1, String wrong2, String wrong3) {
 		super();
 		this.question = iFeelPretty(question);
 		this.answer = iFeelPretty(answer);
 		this.wrong1 = iFeelPretty(wrong1);
 		this.wrong2 = iFeelPretty(wrong2);
 		this.wrong3 = iFeelPretty(wrong3);
+		this.questionType = iFeelPretty(questionType);
 		
 		views = 0;
 		correctedness = 0;
 		
 	}
+public String getQuestionType() {
+	return questionType;
+}
+public void setQuestionType(String questionType) {
+	this.questionType = questionType;
+}
 public String checkAnswer (String userAnswer) {
 	if (answer.equals(userAnswer)) {
 		correctedness++;

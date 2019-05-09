@@ -2,27 +2,23 @@ package application;
 
 import java.util.ArrayList;
 import java.util.Collections;
-
-import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.GridPane;
 
-
-public class GetMultipleChoice {
+public class MultipleChoice {
 	
-	CreateMainLayout createLayout;
 	CreateMainButtons createButton;
+	CreateMainLayout createLayout;
 	
-	public GridPane setMC(String question, String correctMC1, String incorrectMC2, 
-			String incorrectMC3, String incorrectMC4) {
-
-		
+	public GridPane getMC(String question, String correctMC1, String incorrectMC2, String incorrectMC3, String incorrectMC4) {
+	
 		Button submit = createButton.submit();
 		Label response = createButton.content("");
 		Label qLabel = createButton.question(question);
+		qLabel.setWrapText(true);
 		
 		/*
 		 * Create radio buttons for answer choices.
@@ -59,13 +55,12 @@ public class GetMultipleChoice {
 		//This if statement determines parameter for display method in AlertBox
 		//(correct if radio1 is chosen, otherwise incorrect)
 		if (radio1.isSelected()) {	
-			//AlertBox.display("Correct, good job!"); 
+			AlertBox.display("Correct, good job!"); 
 		}
 		else {
-			//AlertBox.display("Incorrect, please try again.");
+			AlertBox.display("Incorrect, please try again.");
 		}           
 		});
-		
 		//To avoid correct answer always appearing as the first answer choice, put answer choices in ArrayList and then shuffle.
 		//This arranges radioButtons in random order before placing on center panel.
 		ArrayList<RadioButton> answerRadio = new ArrayList<RadioButton>();
@@ -74,8 +69,9 @@ public class GetMultipleChoice {
 		answerRadio.add(radio3);
 		answerRadio.add(radio4);
 		Collections.shuffle(answerRadio);
+		//Place answer choices in center panel
 		
-		GridPane grid = new GridPane();
+		GridPane center = new GridPane();
 		GridPane.setConstraints(qLabel,2,2);
 		GridPane.setConstraints(answerRadio.get(0),2,4);
 		GridPane.setConstraints(answerRadio.get(1),2,5);
@@ -83,13 +79,9 @@ public class GetMultipleChoice {
 		GridPane.setConstraints(answerRadio.get(3),2,7);
 		GridPane.setConstraints(submit,2,9);
 		GridPane.setConstraints(response,2,10);
-		
-		grid.setPadding(new Insets(20, 20, 20, 20));
-		grid.setVgap(8);;
-		grid.setHgap(10);
-		grid.getChildren().addAll(qLabel, response, radio1, radio2, radio3, radio4, submit);
-
-		return grid;
-	}
 	
+		center.getChildren().addAll(qLabel, radio1, radio2, radio3, radio4, response, submit);
+		return center;
+		
+	}
 }

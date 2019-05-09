@@ -9,12 +9,12 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Reader {
-	
+
 	int lessonIndex;
 	ArrayList<Topic> javaTopics;
-	 
+
 	String lastTopic,lastLesson;
-	
+
 	//pull scribbles from a file
 	public Reader() {
 		javaTopics = new ArrayList<Topic>();
@@ -31,15 +31,15 @@ public class Reader {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
-		
-		
+
+
+
+
 		File file = new File("ContentHash.txt");
 		try {
 			Scanner scanner = new Scanner(file);
 			scanner.nextLine();
-			
+
 			while (scanner.hasNextLine()) {
 				// this is where we would read in the data and input here
 				// for pulling as a loop insert that variable instead of "Basics"
@@ -72,11 +72,11 @@ public class Reader {
 
 					// check to see if lesson already exists inside the Topic Object
 					myLesson = myTopic.addLesson(lessonText.trim());
-					String type = column[0];
-					String module = column[1];
-					String page = column[3];
+					//String type = column[0];
+					//String module = column[1];
+					//String page = column[3];
 				}
-				
+
 				// content fields
 				if (column[0].trim().equalsIgnoreCase("c") && column.length >= 5) {
 					String content = column[4];
@@ -103,9 +103,9 @@ public class Reader {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	} 
-	
-	
+	}
+
+
 	public String getLastTopic() {
 		return lastTopic;
 	}
@@ -119,24 +119,22 @@ public class Reader {
 	public void tasukette(String prevTopic, String prevLesson) {
 		lastTopic = prevTopic;
 		lastLesson= prevLesson;
-		
+
 	try {
 		FileWriter fw = new FileWriter("captainsLog.txt", true);
 		fw.write(prevTopic + "#" + prevLesson);
 		fw.close();
-		
+
 	}catch (IOException e) {
 			e.printStackTrace();
 
 	}
 	}
-	
-	
+
+
 	public ArrayList<Topic> topics() {
 		return javaTopics;
-		
+
 	}
 
 }
-	
-

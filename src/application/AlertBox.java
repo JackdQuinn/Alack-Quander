@@ -18,12 +18,19 @@ public class AlertBox {
 	public static void display(String message) {
 		Stage window = new Stage();
 		
+		int xp = 0;
+		if(message.equals("Correct, good job!")) {
+			xp++;
+		}
+		//String xpS = Integer.toString(xp);
+		//Label xpLabel = new Label("You have " + xpS + " XP!");
+		
 		//Blocks any user interaction in main window until user presses continue (or closes alert box)
 		window.initModality(Modality.APPLICATION_MODAL); 
 		
 		Button closeButton = new Button("Continue");
 		closeButton.setOnAction(e -> window.close());
-		
+
 		//Set style and width/height
 		String windowStyle = "Style.css";
 		window.setMinWidth(200);;
@@ -38,6 +45,7 @@ public class AlertBox {
 		VBox layout = new VBox(20);
 		layout.setPadding(new Insets(10,10,10,10));
 		layout.getChildren().addAll(label, closeButton);
+		//layout.getChildren().addAll(xpLabel);
 		layout.setAlignment(Pos.CENTER);
 		layout.getStylesheets().add(windowStyle);
 		

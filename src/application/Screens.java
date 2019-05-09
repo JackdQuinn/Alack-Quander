@@ -15,30 +15,26 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class mainStreamLined extends Application {
+public class Screens {
+	Stage window;
+	Scene beforeScene, afterScene, currentScene, topicMenu, lessonMenu;
+	CreateMainButtons createButton;
+	CreateMainLayout createLayout;
+	int lessonIndex;
+	ArrayList<Topic> javaTopics;
+	String windowTitle = "Alack-Quander 591 Study Buddy";
+	Reader reader = new Reader();
+	String style = "Style.css";
+	Tracking xpTracker = new Tracking();
 
-	//State variables	
-		Stage window;
-		Scene beforeScene, afterScene, currentScene, topicMenu, lessonMenu;
-		CreateMainButtons createButton;
-		CreateMainLayout createLayout;
-		GetMultipleChoice multipleChoice;
-		int lessonIndex;
-		ArrayList<Topic> javaTopics;
-		String windowTitle = "Alack-Quander 591 Study Buddy";
-		Reader reader = new Reader();
-		String style = "Style.css";
-		
-		
-		
 	//Topic Menu
-	@Override
-	public void start(Stage primaryStage) throws Exception {
+	public void goToTopics(Stage primaryStage) {
+
 		window = primaryStage;
 		createButton = new CreateMainButtons();
 		createLayout = new CreateMainLayout();
 		javaTopics = reader.topics();
-		
+
 		/*
 		 * Create panels for BorderPane
 		 * @param center is a GridPane in the center panel of BorderPane
@@ -46,7 +42,7 @@ public class mainStreamLined extends Application {
 		 * @param left is a VBox in the right panel of BorderPane
 		 * @param top is a GridPane in the top panel of BorderPane
 		 * @param bottom is an HBox in the bottom panel of BorderPane
-		 * @param title will appear in 
+		 * @param title will appear in
 		 */
 		GridPane center = createLayout.setGrid();
 		VBox right = createLayout.setVbox();
@@ -54,36 +50,37 @@ public class mainStreamLined extends Application {
 		GridPane top = createLayout.setGrid();
 		Label title = createButton.title("Welcome to Alack-Quander 591 Study Buddy!");
 		Label progressTracker = createButton.title("pick up from the Topic: " + reader.getLastTopic() + " and Lesson: " + reader.getLastLesson());
-		
+
 		GridPane.setConstraints(title, 8, 1);
 		GridPane.setConstraints(progressTracker, 8, 5);
-		
+
 		top.getChildren().addAll(title,progressTracker);
 	    title.getStyleClass().add("label-title");
-		
+
 		//center: add buttons for each Topic to grid using ArrayList of Topics
 		lessonIndex = 0;
-		int r = 3;
-		int c = 4;
+		int r = 4;
+		int c = 3;
 		for (Topic temp : javaTopics) {
 			Button btnTopic = createButton.topicButton(temp.getTopic());
 			//Brings you to list of lessons for the chosen Topic
-			btnTopic.setOnAction(e -> goToLessons(primaryStage, temp)); 
+			btnTopic.setOnAction(e -> goToLessons(primaryStage, temp));
 			GridPane.setConstraints(btnTopic, r, c);
 			//Place buttons in grid
 			c++;
 			if (c > 10) {
-				c = 4;
+				c = 3;
 				r++;
 		}
 		center.getChildren().add(btnTopic);
+		btnTopic.setId("round-button");
 		}
-		
+
 		Label menu = createButton.title("Lesson: ");
 		menu.setId("big-label"); //specific style from CSS (not applied to all labels)
 		GridPane.setConstraints(menu, 2, 2);
 		center.getChildren().addAll(menu);
-		
+
 		/*
 		 * Add panels to BorderPane and set scene/window
 		 */
@@ -94,12 +91,12 @@ public class mainStreamLined extends Application {
 		window.setTitle(windowTitle);
 		window.show();
 	}
-	
+
 	//Lesson menu
 	public void goToLessons(Stage primaryStage, Topic currentTopic) {
 		window = primaryStage;
 		window.setTitle(windowTitle);
-		
+
 		/*
 		 * Create panels for BorderPane
 		 * @param center is a GridPane in the center panel of BorderPane
@@ -107,7 +104,7 @@ public class mainStreamLined extends Application {
 		 * @param left is a VBox in the right panel of BorderPane
 		 * @param top is a GridPane in the top panel of BorderPane
 		 * @param bottom is an HBox in the bottom panel of BorderPane
-		 * @param title will appear in 
+		 * @param title will appear in
 		 */
 		GridPane center = createLayout.setGrid();
 		VBox right = createLayout.setVbox();
@@ -115,16 +112,14 @@ public class mainStreamLined extends Application {
 		GridPane top = createLayout.setGrid();
 		String t = "Topic: " + currentTopic.getTopic();
 		Label title = createButton.title(t);
-		
-		title.getStyleClass().add("label-title");
-		GridPane.setConstraints(title, 8, 1);
-		top.getChildren().add(title);
-		
+
+
+
 		//Create button to bring you to previous page. Place in right panel.
 		Button p = createButton.prev();
 		p.setOnAction(e -> getToThePreviousScreen(topicMenu));
 		left.getChildren().addAll(p);
-		
+
 		//Add buttons to the grid for each topic (using ArrayList of lessons)
 		lessonIndex = 0;
 		int r = 3;
@@ -143,7 +138,13 @@ public class mainStreamLined extends Application {
 				}
 			center.getChildren().add(btnLesson);
 			}
-		
+
+
+		title.getStyleClass().add("label-title");
+		GridPane.setConstraints(title, 8, 1);
+		top.getChildren().add(title);
+
+
 		/*
 		 * Add panels to BorderPane and set scene/window
 		 */
@@ -162,11 +163,11 @@ public class mainStreamLined extends Application {
 	 * @param prevScene the scene that came before
 	 */
 	public void getToTheNextScreen(Topic myTopic, Lesson myLesson, Scene prevScene) {
-		lessonIndex++; 
+		lessonIndex++;
 		ArrayList<TextScribbles> contentAndQuestions = myLesson.getText();
 		// see if Lesson has next index
 		if (lessonIndex <= contentAndQuestions.size()) {
-			TextScribbles scribbles = contentAndQuestions.get(lessonIndex-1); 
+			TextScribbles scribbles = contentAndQuestions.get(lessonIndex-1);
 			if (scribbles instanceof Content) {
 				currentScene = contentPage(lessonIndex, myTopic, myLesson, prevScene, ((Content) scribbles).getText());
 				window.setScene(currentScene);
@@ -174,7 +175,7 @@ public class mainStreamLined extends Application {
 				currentScene = questionFIBpage(lessonIndex, myTopic, myLesson, prevScene, ((Question) scribbles));
 				window.setScene(currentScene);
 				window.setTitle(windowTitle);
-				
+
 			}
 			else {
 				currentScene = questionPage(lessonIndex, myTopic, myLesson, prevScene, ((Question) scribbles));
@@ -196,7 +197,7 @@ public class mainStreamLined extends Application {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param lessonPageIndex-- used to navigate lessons arrayList
 	 * @param prevScene -- the previous scene
 	 * @param content   -- informative text to teach user how to (Java)
@@ -211,7 +212,7 @@ public class mainStreamLined extends Application {
 		 * @param left is a VBox in the right panel of BorderPane
 		 * @param top is a GridPane in the top panel of BorderPane
 		 * @param bottom is an HBox in the bottom panel of BorderPane
-		 * @param title will appear in 
+		 * @param title will appear in
 		 */
 		GridPane center = createLayout.setGrid();
 		VBox right = createLayout.setVbox();
@@ -219,20 +220,20 @@ public class mainStreamLined extends Application {
 		GridPane top = createLayout.setGrid();
 		String lesson = myLesson.getLesson();
 	    Label title = createButton.title("Lesson: " + lesson);
-		
+
 	    top.getChildren().add(title);
 	    GridPane.setConstraints(title, 8, 1);
 	    title.getStyleClass().add("label-title");
-	    
+
 	    //Create label for content text. Place in center panel.
 		Label c = createButton.content(content);
 		GridPane.setConstraints(c, 2, 2);
 		center.getChildren().add(c);
-		
-		
+
+
 		Button n = createButton.next();
 		Button p = createButton.prev();
-		n.setOnAction(e -> getToTheNextScreen(myTopic, myLesson, currentScene)); 
+		n.setOnAction(e -> getToTheNextScreen(myTopic, myLesson, currentScene));
 		p.setOnAction(e -> getToThePreviousScreen(prevScene));
 	    right.getChildren().add(n);
 	    left.getChildren().add(p);
@@ -247,7 +248,7 @@ public class mainStreamLined extends Application {
 	}
 
 	public Scene questionPage(int lessonPageIndex, Topic myTopic, Lesson myLesson, Scene prevScene, Question myQuestion) {
-	
+
 		/*
 		 * Create panels for BorderPane
 		 * @param center is a GridPane in the center panel of BorderPane
@@ -255,28 +256,28 @@ public class mainStreamLined extends Application {
 		 * @param left is a VBox in the right panel of BorderPane
 		 * @param top is a GridPane in the top panel of BorderPane
 		 * @param bottom is an HBox in the bottom panel of BorderPane
-		 * @param title will appear in 
+		 * @param title will appear in
 		 */
 		GridPane center = createLayout.setGrid();
 		VBox right = createLayout.setVbox();
 		VBox left = createLayout.setVbox();
-		GridPane top = createLayout.setGrid();	
-		
+		GridPane top = createLayout.setGrid();
+
 		String lesson = myLesson.getLesson();
 	    Label title = createButton.title("Lesson: " + lesson);
 	    top.getChildren().add(title);
 	    GridPane.setConstraints(title, 8, 1);
 	    title.getStyleClass().add("label-title");
-		
+
 		//Create button to bring you to previous/next page. Place in right panel.
 		Button n = createButton.next();
 		Button p = createButton.prev();
-		n.setOnAction(e -> getToTheNextScreen(myTopic, myLesson, currentScene)); 
+		n.setOnAction(e -> getToTheNextScreen(myTopic, myLesson, currentScene));
 		p.setOnAction(e -> getToThePreviousScreen(prevScene));
 	    right.getChildren().add(n);
 	    left.getChildren().add(p);
-	    
-		//Get answer choices (1 correct, 3 incorrect) from myQuestion. 
+
+		//Get answer choices (1 correct, 3 incorrect) from myQuestion.
 		String correctMC1   = myQuestion.getAnswer();
 		String incorrectMC2 = myQuestion.getWrong1();
 		String incorrectMC3 = myQuestion.getWrong2();
@@ -297,15 +298,15 @@ public class mainStreamLined extends Application {
 		radio3=new RadioButton(incorrectMC3);
 		radio4=new RadioButton(incorrectMC4);
 		//for longer answer choices, wrap text to appear in multiple lines
-		radio1.setWrapText(true); 
-		radio2.setWrapText(true); 
-		radio3.setWrapText(true); 
-		radio4.setWrapText(true); 
+		radio1.setWrapText(true);
+		radio2.setWrapText(true);
+		radio3.setWrapText(true);
+		radio4.setWrapText(true);
 		//Prevent automatic highlighting of radio button
-		radio1.setFocusTraversable(false); 
-		radio2.setFocusTraversable(false); 
-		radio3.setFocusTraversable(false); 
-		radio4.setFocusTraversable(false); 
+		radio1.setFocusTraversable(false);
+		radio2.setFocusTraversable(false);
+		radio3.setFocusTraversable(false);
+		radio4.setFocusTraversable(false);
 		submit.setDisable(true);
 		ToggleGroup q= new ToggleGroup();
 		radio1.setToggleGroup(q);
@@ -320,15 +321,16 @@ public class mainStreamLined extends Application {
 		submit.setOnAction(e -> {
 		//This if statement determines parameter for display method in AlertBox
 		//(correct if radio1 is chosen, otherwise incorrect)
-		if (radio1.isSelected()) {	
+		if (radio1.isSelected()) {
 			AlertBox.display("Correct, good job!");
 			reader.tasukette(myTopic.getTopic(), myLesson.getLesson());
+			xpTracker.writeScore("100");
 		}
 		else {
 			AlertBox.display("Incorrect, please try again.");
-		}           
+		}
 		});
-		
+
 		//To avoid correct answer always appearing as the first answer choice, put answer choices in ArrayList and then shuffle.
 		//This arranges radioButtons in random order before placing on center panel.
 		ArrayList<RadioButton> answerRadio = new ArrayList<RadioButton>();
@@ -346,7 +348,7 @@ public class mainStreamLined extends Application {
 		GridPane.setConstraints(submit,2,9);
 		GridPane.setConstraints(response,2,10);
 		center.getChildren().addAll(question, radio1, radio2, radio3, radio4, response, submit);
-		
+
 		/*
 		 * Add panels to BorderPane and set scene
 		 */
@@ -359,26 +361,26 @@ public class mainStreamLined extends Application {
 		GridPane center = createLayout.setGrid();
 		VBox right = createLayout.setVbox();
 		VBox left = createLayout.setVbox();
-		GridPane top = createLayout.setGrid();	
-		
+		GridPane top = createLayout.setGrid();
+
 		String lesson = myLesson.getLesson();
 	    Label title = createButton.title("Lesson: " + lesson);
 	    top.getChildren().add(title);
 	    GridPane.setConstraints(title, 8, 1);
 	    title.getStyleClass().add("label-title");
-		
+
 		//Create button to bring you to previous/next page. Place in right panel.
 		Button n = createButton.next();
 		Button p = createButton.prev();
-		n.setOnAction(e -> getToTheNextScreen(myTopic, myLesson, currentScene)); 
+		n.setOnAction(e -> getToTheNextScreen(myTopic, myLesson, currentScene));
 		p.setOnAction(e -> getToThePreviousScreen(prevScene));
 	    right.getChildren().add(n);
 	    left.getChildren().add(p);
-		
+
 		int numberOfBlanks = 1;
 		String[] correctFIB = myQuestion.getAnswer().split(",");
 		TextField[] userText = new TextField[correctFIB.length];
-		
+
 		Label q = createButton.content(myQuestion.getQuestion());
 		q.setWrapText(true);
 		center.getChildren().addAll(q);
@@ -390,8 +392,8 @@ public class mainStreamLined extends Application {
 			GridPane.setConstraints(FIB1,0,(5+i*2));
 			GridPane.setConstraints(userText[i],0,6+i*2);
 		}
-		
-		
+
+
 		Button submit = createButton.submit();
 		Label prompt = createButton.content("Answer:");
 		submit.setOnAction(e -> {
@@ -403,32 +405,32 @@ public class mainStreamLined extends Application {
 					correct = false;
 				}
 			}
-			
-			if (correct) {	
+
+			if (correct) {
 				AlertBox.display("Correct, good job!");
 				reader.tasukette(myTopic.getTopic(), myLesson.getLesson());
-				
+
 			}
 			else {
 				AlertBox.display("Incorrect, please try again.");
-			}           
+			}
 			});
-		
-		
-		
+
+
+
 		center.getChildren().addAll(submit,prompt);
 		GridPane.setConstraints(title,0,0);
 		GridPane.setConstraints(q,0,1);
 		GridPane.setConstraints(prompt,0,3);
-			
+
 		GridPane.setConstraints(submit,0,10+i*2);
-			
-				
+
+
 		center.setPadding(new Insets(20, 20, 20, 20));
 		center.setVgap(8);
 		center.setHgap(10);
 		center.getStylesheets().add("Style.css");
-		
+
 		BorderPane bp = createLayout.setBorderPane(right, center, left, top);
 		currentScene = new Scene(bp, 800, 600);
 		currentScene.getStylesheets().add(style);
@@ -439,5 +441,5 @@ public class mainStreamLined extends Application {
 		launch(args);
 	}
 
-	
+
 }

@@ -1,1 +1,1 @@
-Basics#IntroConditions & Loops#Conditional StatementsConditions & Loops#Conditional StatementsBasics#introBasics#introBasics#intro
+Conditions & Loops#Conditional Statements

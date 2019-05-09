@@ -121,7 +121,7 @@ public class Reader {
 		lastLesson= prevLesson;
 
 	try {
-		FileWriter fw = new FileWriter("captainsLog.txt", true);
+		FileWriter fw = new FileWriter("captainsLog.txt", false);
 		fw.write(prevTopic + "#" + prevLesson);
 		fw.close();
 

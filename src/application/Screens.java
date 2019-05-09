@@ -436,10 +436,4 @@ public class Screens {
 		currentScene.getStylesheets().add(style);
 		return currentScene;
 	}
-
-	public static void main(String[] args) {
-		launch(args);
-	}
-
-
 }

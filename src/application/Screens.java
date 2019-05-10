@@ -1,7 +1,11 @@
 package application;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Scanner;
+
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -198,7 +202,7 @@ public class Screens {
 			lessonIndex = 0;
 		}
 		//this records last page for tracking progress
-		recordPage(myTopic, myLesson);
+		reader.tasukette(myTopic.getTopic(), myLesson.getLesson());
 	}
 
 	public void getToThePreviousScreen(Scene prevScene) {
@@ -252,7 +256,6 @@ public class Screens {
 		 * Add panels to BorderPane and set scene
 		 */
 	    BorderPane bp = createLayout.setBorderPane(right, center, left, top);
-	    //reader.tasukette(myTopic.getTopic(), myLesson.getLesson());
 	    currentScene = new Scene(bp, 800, 600);
 		currentScene.getStylesheets().add(style);
 		return currentScene;
@@ -273,7 +276,8 @@ public class Screens {
 		VBox right = createLayout.setVbox();
 		VBox left = createLayout.setVbox();
 		GridPane top = createLayout.setGrid();
-
+		
+		//get lesson name for title. Place in top panel.
 		String lesson = myLesson.getLesson();
 	    Label title = createButton.title("Lesson: " + lesson);
 	    top.getChildren().add(title);
@@ -284,6 +288,8 @@ public class Screens {
 		Button n = createButton.next();
 		Button p = createButton.prev();
 		n.setOnAction(e -> getToTheNextScreen(myTopic, myLesson, currentScene));
+		//disable button until user answers the question correctly
+		n.setDisable(true);
 		p.setOnAction(e -> getToThePreviousScreen(prevScene));
 	    right.getChildren().add(n);
 	    left.getChildren().add(p);
@@ -336,6 +342,8 @@ public class Screens {
 			AlertBox.display("Correct, good job!");
 			//record 10 points in xp.txt
 			reader.xp();
+			//enable next button because user answered correctly
+			n.setDisable(false);
 		}
 		else {
 			AlertBox.display("Incorrect, please try again.");
@@ -364,52 +372,63 @@ public class Screens {
 		 * Add panels to BorderPane and set scene
 		 */
 		BorderPane bp = createLayout.setBorderPane(right, center, left, top);
-		//reader.tasukette(myTopic.getTopic(), myLesson.getLesson());
 		currentScene = new Scene(bp, 800, 600);
 		currentScene.getStylesheets().add(style);
 		return currentScene;
 	}
 	public Scene questionFIBpage(int lessonPageIndex, Topic myTopic, Lesson myLesson, Scene prevScene, Question myQuestion) {
+		
+		/*
+		 * Create panels for BorderPane
+		 * @param center is a GridPane in the center panel of BorderPane
+		 * @param right is a VBox in the right panel of BorderPane
+		 * @param left is a VBox in the right panel of BorderPane
+		 * @param top is a GridPane in the top panel of BorderPane
+		 * @param bottom is an HBox in the bottom panel of BorderPane
+		 * @param title will appear in
+		 */
 		GridPane center = createLayout.setGrid();
 		VBox right = createLayout.setVbox();
 		VBox left = createLayout.setVbox();
 		GridPane top = createLayout.setGrid();
-
+		
+		//get lesson name for title. Place in top panel.
 		String lesson = myLesson.getLesson();
 	    Label title = createButton.title("Lesson: " + lesson);
 	    top.getChildren().add(title);
 	    GridPane.setConstraints(title, 8, 1);
 	    title.getStyleClass().add("label-title");
+	    
 
-		//Create button to bring you to previous/next page. Place in right panel.
+	    //Create button to bring you to previous/next page. Place in right panel.
 		Button n = createButton.next();
 		Button p = createButton.prev();
 		n.setOnAction(e -> getToTheNextScreen(myTopic, myLesson, currentScene));
+		//disable button until user answers the question correctly
+		n.setDisable(true);
 		p.setOnAction(e -> getToThePreviousScreen(prevScene));
 	    right.getChildren().add(n);
 	    left.getChildren().add(p);
-
-		//integer numberOfBlanks = 1;
+	   
+	    Button submit = createButton.submit();
+	    //can't press next until you submit an answer
+	    //submit.setOnAction(e -> n.setDisable(true) );
 		String[] correctFIB = myQuestion.getAnswer().split(",");
 		TextField[] userText = new TextField[correctFIB.length];
-
 		Label q = createButton.content(myQuestion.getQuestion());
-		q.setWrapText(true);
-		center.getChildren().addAll(q);
+		
+		
 		int i;
 		for(i = 0; i < correctFIB.length; i++) {
-			Label FIB1 = createButton.content("Fill in the Blank " + i + ": ");
+			int k = i+1;
+			Label FIB1 = createButton.content("Fill in the Blank " + k + ": ");
 			userText[i] = createButton.shortAnswer();
 			center.getChildren().addAll(FIB1,userText[i]);
 			GridPane.setConstraints(FIB1,0,(5+i*2));
 			GridPane.setConstraints(userText[i],0,6+i*2);
 		}
-
-		Button submit = createButton.submit();
-		Label prompt = createButton.content("Answer:");
 		submit.setOnAction(e -> {
 			//This if statement determines parameter for display method in AlertBox
-			//(correct if radio1 is chosen, otherwise incorrect)
 			boolean correct = true;
 			for(int j = 0; j<userText.length; j++) {
 				if (!correctFIB[j].trim().equals(userText[j].getText().trim())){
@@ -420,32 +439,27 @@ public class Screens {
 				AlertBox.display("Correct, good job!");
 				//record 10 points in xp.txt
 				reader.xp();
+				//enable next button because user answered correctly
+				n.setDisable(false);
 			}
 			else {
 				AlertBox.display("Incorrect, please try again.");
 			}
 			});
 
-		center.getChildren().addAll(submit,prompt);
+		center.getChildren().addAll(submit, q);
 		GridPane.setConstraints(title,0,0);
 		GridPane.setConstraints(q,0,1);
-		GridPane.setConstraints(prompt,0,3);
 		GridPane.setConstraints(submit,0,10+i*2);
 
-		center.setPadding(new Insets(20, 20, 20, 20));
-		center.setVgap(8);
-		center.setHgap(10);
-		center.getStylesheets().add("Style.css");
-
+		/*
+		 * Add panels to BorderPane and set scene
+		 */
 		BorderPane bp = createLayout.setBorderPane(right, center, left, top);
-		//reader.tasukette(myTopic.getTopic(), myLesson.getLesson());
 		currentScene = new Scene(bp, 800, 600);
 		currentScene.getStylesheets().add(style);
 		return currentScene;
 	}
 	
-	private void recordPage(Topic myTopic, Lesson myLesson) {
-		reader.tasukette(myTopic.getTopic(), myLesson.getLesson());
-	}
-	
 }
+	

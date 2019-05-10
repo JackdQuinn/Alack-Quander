@@ -56,7 +56,7 @@ public class Screens {
 	    Label progressTracker = createButton.title("Last Topic: " + reader.getLastTopic());
 		Label progressTracker1 = createButton.title("Last Lesson: " + reader.getLastLesson());
 		String xpS = Integer.toString(reader.getXP());
-		Label progressTracker2 = createButton.title("XP: " + xpS);
+		Label progressTracker2 = createButton.title("XP Earned: " + xpS);
 	    top.getChildren().addAll(progressTracker, progressTracker1, progressTracker2);
 	    progressTracker.getStyleClass().add("label-left");
 	    progressTracker1.getStyleClass().add("label-left");

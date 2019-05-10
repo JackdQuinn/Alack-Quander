@@ -24,7 +24,6 @@ public class Screens {
 	String windowTitle = "Alack-Quander 591 Study Buddy";
 	Reader reader = new Reader();
 	String style = "Style.css";
-	Tracking xpTracker = new Tracking();
 
 	//Topic Menu
 	public void goToTopics(Stage primaryStage) {
@@ -48,14 +47,24 @@ public class Screens {
 		VBox left = createLayout.setVbox();
 		GridPane top = createLayout.setGrid();
 		Label title = createButton.title("Welcome to Alack-Quander 591 Study Buddy!");
-		Label progressTracker = createButton.title("pick up from the Topic: " + reader.getLastTopic() + " and Lesson: " + reader.getLastLesson());
-
-		GridPane.setConstraints(title, 8, 1);
-		GridPane.setConstraints(progressTracker, 8, 5);
-
-		top.getChildren().addAll(title,progressTracker);
+		top.getChildren().addAll(title);
 	    title.getStyleClass().add("label-title");
-
+	    GridPane.setConstraints(title, 8, 1);
+		
+	    //creating progress trackers for last topic, lesson, and XP points earned
+	    //added to top of page
+	    Label progressTracker = createButton.title("Last Topic: " + reader.getLastTopic());
+		Label progressTracker1 = createButton.title("Last Lesson: " + reader.getLastLesson());
+		String xpS = Integer.toString(reader.getXP());
+		Label progressTracker2 = createButton.title("XP: " + xpS);
+	    top.getChildren().addAll(progressTracker, progressTracker1, progressTracker2);
+	    progressTracker.getStyleClass().add("label-left");
+	    progressTracker1.getStyleClass().add("label-left");
+	    progressTracker2.getStyleClass().add("label-left");
+	    GridPane.setConstraints(progressTracker, 8, 3);
+	    GridPane.setConstraints(progressTracker1, 8, 4);
+	    GridPane.setConstraints(progressTracker2, 8, 5);
+	    
 		//center: add buttons for each Topic to grid using ArrayList of Topics
 		lessonIndex = 0;
 		int r = 4;
@@ -95,6 +104,7 @@ public class Screens {
 	public void goToLessons(Stage primaryStage, Topic currentTopic) {
 		window = primaryStage;
 		window.setTitle(windowTitle);
+		String t = "Topic: " + currentTopic.getTopic();
 
 		/*
 		 * Create panels for BorderPane
@@ -109,15 +119,13 @@ public class Screens {
 		VBox right = createLayout.setVbox();
 		VBox left = createLayout.setVbox();
 		GridPane top = createLayout.setGrid();
-		String t = "Topic: " + currentTopic.getTopic();
 		Label title = createButton.title(t);
 
-
-
+		
 		//Create button to bring you to previous page. Place in right panel.
 		Button p = createButton.prev();
 		p.setOnAction(e -> getToThePreviousScreen(topicMenu));
-		left.getChildren().addAll(p);
+		left.getChildren().add(p);
 
 		//Add buttons to the grid for each topic (using ArrayList of lessons)
 		lessonIndex = 0;
@@ -137,8 +145,7 @@ public class Screens {
 				}
 			center.getChildren().add(btnLesson);
 			}
-
-
+		
 		title.getStyleClass().add("label-title");
 		GridPane.setConstraints(title, 8, 1);
 		top.getChildren().add(title);
@@ -241,6 +248,8 @@ public class Screens {
 		 * Add panels to BorderPane and set scene
 		 */
 	    BorderPane bp = createLayout.setBorderPane(right, center, left, top);
+	    //recorded as last page
+	    reader.tasukette(myTopic.getTopic(), myLesson.getLesson());
 	    currentScene = new Scene(bp, 800, 600);
 		currentScene.getStylesheets().add(style);
 		return currentScene;
@@ -284,7 +293,7 @@ public class Screens {
 		Button submit = createButton.submit();
 		Label response = createButton.content("");
 		Label question = createButton.question(myQuestion.getQuestion());
-		question.setWrapText(true);
+		//question.setWrapText(true);
 
 		/*
 		 * Create radio buttons for answer choices.
@@ -322,8 +331,8 @@ public class Screens {
 		//(correct if radio1 is chosen, otherwise incorrect)
 		if (radio1.isSelected()) {
 			AlertBox.display("Correct, good job!");
-			reader.tasukette(myTopic.getTopic(), myLesson.getLesson());
-			xpTracker.writeScore("100");
+			//reader.tasukette(myTopic.getTopic(), myLesson.getLesson());
+			reader.xp();
 		}
 		else {
 			AlertBox.display("Incorrect, please try again.");
@@ -352,6 +361,8 @@ public class Screens {
 		 * Add panels to BorderPane and set scene
 		 */
 		BorderPane bp = createLayout.setBorderPane(right, center, left, top);
+		//recorded as last page
+		reader.tasukette(myTopic.getTopic(), myLesson.getLesson());
 		currentScene = new Scene(bp, 800, 600);
 		currentScene.getStylesheets().add(style);
 		return currentScene;
@@ -376,7 +387,7 @@ public class Screens {
 	    right.getChildren().add(n);
 	    left.getChildren().add(p);
 
-		int numberOfBlanks = 1;
+		//integer numberOfBlanks = 1;
 		String[] correctFIB = myQuestion.getAnswer().split(",");
 		TextField[] userText = new TextField[correctFIB.length];
 
@@ -404,24 +415,20 @@ public class Screens {
 					correct = false;
 				}
 			}
-
 			if (correct) {
 				AlertBox.display("Correct, good job!");
-				reader.tasukette(myTopic.getTopic(), myLesson.getLesson());
-
+				//reader.tasukette(myTopic.getTopic(), myLesson.getLesson());
+				reader.xp();
 			}
 			else {
 				AlertBox.display("Incorrect, please try again.");
 			}
 			});
 
-
-
 		center.getChildren().addAll(submit,prompt);
 		GridPane.setConstraints(title,0,0);
 		GridPane.setConstraints(q,0,1);
 		GridPane.setConstraints(prompt,0,3);
-
 		GridPane.setConstraints(submit,0,10+i*2);
 
 
@@ -431,6 +438,8 @@ public class Screens {
 		center.getStylesheets().add("Style.css");
 
 		BorderPane bp = createLayout.setBorderPane(right, center, left, top);
+		//recorded as last page
+		reader.tasukette(myTopic.getTopic(), myLesson.getLesson());
 		currentScene = new Scene(bp, 800, 600);
 		currentScene.getStylesheets().add(style);
 		return currentScene;

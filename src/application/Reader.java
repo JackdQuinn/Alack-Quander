@@ -1,10 +1,10 @@
 package application;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -12,14 +12,14 @@ public class Reader {
 
 	int lessonIndex;
 	ArrayList<Topic> javaTopics;
-
+	int XP=0;
 	String lastTopic,lastLesson;
 
 	//pull scribbles from a file
 	public Reader() {
 		javaTopics = new ArrayList<Topic>();
 		lessonIndex = 0; // offset for goToChosen topic increment call
-
+		
 		File captainsLog = new File("captainsLog.txt");
 		try {
 			Scanner darkly = new Scanner(captainsLog);
@@ -32,7 +32,20 @@ public class Reader {
 			e.printStackTrace();
 		}
 
-
+		
+		File xpFile = new File("xp.txt");
+		try {
+			Scanner s = new Scanner(xpFile);
+			while (s.hasNextInt()) {
+				int xpNow = s.nextInt();
+				XP += xpNow;
+			}
+			s.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 
 
 		File file = new File("ContentHash.txt");
@@ -114,8 +127,11 @@ public class Reader {
 	public String getLastLesson() {
 		return lastLesson;
 	}
-
-
+	
+	public int getXP() {
+		return XP;
+	}
+	
 	public void tasukette(String prevTopic, String prevLesson) {
 		lastTopic = prevTopic;
 		lastLesson= prevLesson;
@@ -131,6 +147,18 @@ public class Reader {
 	}
 	}
 
+	public void xp() {
+
+	try {
+		FileWriter fw = new FileWriter("xp.txt", true);
+		fw.write("10\n");
+		fw.close();
+
+	}catch (IOException e) {
+			e.printStackTrace();
+
+	}
+	}
 
 	public ArrayList<Topic> topics() {
 		return javaTopics;

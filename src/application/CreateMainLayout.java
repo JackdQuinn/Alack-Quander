@@ -17,7 +17,7 @@ public class CreateMainLayout {
 	public GridPane setGrid() {
 		GridPane grid = new GridPane();
 		grid.setPadding(new Insets(10,10,10,10));
-		grid.setVgap(15);
+		grid.setVgap(10);
 		grid.setHgap(10);
 		return grid;
 	}
@@ -82,8 +82,8 @@ public class CreateMainLayout {
 		//left
 		VBox leftMenu = new VBox(10);
 		leftMenu.setPrefWidth(100);
-		leftMenu.getStyleClass().add("vbox");
 		leftMenu.setAlignment(Pos.BOTTOM_LEFT);
+		leftMenu.getStyleClass().add("vbox");
 		leftMenu.getChildren().addAll(left);
 		
 		

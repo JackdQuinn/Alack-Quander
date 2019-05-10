@@ -51,8 +51,12 @@ public class Screens {
 	    title.getStyleClass().add("label-title");
 	    GridPane.setConstraints(title, 8, 1);
 		
-	    //creating progress trackers for last topic, lesson, and XP points earned
-	    //added to top of page
+	    /*
+	     * Tracking progress and adding labels into top of page
+	     * @param progressTracker - this is the last topic you were on
+	     * @param progressTracker1 - this is the last lesson you were on
+	     * @param progressTracker2 - this is your cumulative score of XP
+	     */
 	    Label progressTracker = createButton.title("Last Topic: " + reader.getLastTopic());
 		Label progressTracker1 = createButton.title("Last Lesson: " + reader.getLastLesson());
 		String xpS = Integer.toString(reader.getXP());
@@ -121,7 +125,6 @@ public class Screens {
 		GridPane top = createLayout.setGrid();
 		Label title = createButton.title(t);
 
-		
 		//Create button to bring you to previous page. Place in right panel.
 		Button p = createButton.prev();
 		p.setOnAction(e -> getToThePreviousScreen(topicMenu));
@@ -149,7 +152,6 @@ public class Screens {
 		title.getStyleClass().add("label-title");
 		GridPane.setConstraints(title, 8, 1);
 		top.getChildren().add(title);
-
 
 		/*
 		 * Add panels to BorderPane and set scene/window
@@ -195,6 +197,8 @@ public class Screens {
 			window.setTitle(windowTitle);
 			lessonIndex = 0;
 		}
+		//this records last page for tracking progress
+		recordPage(myTopic, myLesson);
 	}
 
 	public void getToThePreviousScreen(Scene prevScene) {
@@ -248,8 +252,7 @@ public class Screens {
 		 * Add panels to BorderPane and set scene
 		 */
 	    BorderPane bp = createLayout.setBorderPane(right, center, left, top);
-	    //recorded as last page
-	    reader.tasukette(myTopic.getTopic(), myLesson.getLesson());
+	    //reader.tasukette(myTopic.getTopic(), myLesson.getLesson());
 	    currentScene = new Scene(bp, 800, 600);
 		currentScene.getStylesheets().add(style);
 		return currentScene;
@@ -293,7 +296,7 @@ public class Screens {
 		Button submit = createButton.submit();
 		Label response = createButton.content("");
 		Label question = createButton.question(myQuestion.getQuestion());
-		//question.setWrapText(true);
+		question.setWrapText(true);
 
 		/*
 		 * Create radio buttons for answer choices.
@@ -331,7 +334,7 @@ public class Screens {
 		//(correct if radio1 is chosen, otherwise incorrect)
 		if (radio1.isSelected()) {
 			AlertBox.display("Correct, good job!");
-			//reader.tasukette(myTopic.getTopic(), myLesson.getLesson());
+			//record 10 points in xp.txt
 			reader.xp();
 		}
 		else {
@@ -361,8 +364,7 @@ public class Screens {
 		 * Add panels to BorderPane and set scene
 		 */
 		BorderPane bp = createLayout.setBorderPane(right, center, left, top);
-		//recorded as last page
-		reader.tasukette(myTopic.getTopic(), myLesson.getLesson());
+		//reader.tasukette(myTopic.getTopic(), myLesson.getLesson());
 		currentScene = new Scene(bp, 800, 600);
 		currentScene.getStylesheets().add(style);
 		return currentScene;
@@ -403,7 +405,6 @@ public class Screens {
 			GridPane.setConstraints(userText[i],0,6+i*2);
 		}
 
-
 		Button submit = createButton.submit();
 		Label prompt = createButton.content("Answer:");
 		submit.setOnAction(e -> {
@@ -417,7 +418,7 @@ public class Screens {
 			}
 			if (correct) {
 				AlertBox.display("Correct, good job!");
-				//reader.tasukette(myTopic.getTopic(), myLesson.getLesson());
+				//record 10 points in xp.txt
 				reader.xp();
 			}
 			else {
@@ -431,17 +432,20 @@ public class Screens {
 		GridPane.setConstraints(prompt,0,3);
 		GridPane.setConstraints(submit,0,10+i*2);
 
-
 		center.setPadding(new Insets(20, 20, 20, 20));
 		center.setVgap(8);
 		center.setHgap(10);
 		center.getStylesheets().add("Style.css");
 
 		BorderPane bp = createLayout.setBorderPane(right, center, left, top);
-		//recorded as last page
-		reader.tasukette(myTopic.getTopic(), myLesson.getLesson());
+		//reader.tasukette(myTopic.getTopic(), myLesson.getLesson());
 		currentScene = new Scene(bp, 800, 600);
 		currentScene.getStylesheets().add(style);
 		return currentScene;
 	}
+	
+	private void recordPage(Topic myTopic, Lesson myLesson) {
+		reader.tasukette(myTopic.getTopic(), myLesson.getLesson());
+	}
+	
 }

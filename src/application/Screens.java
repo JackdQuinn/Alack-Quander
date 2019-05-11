@@ -1,12 +1,7 @@
 package application;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Scanner;
-
-import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -176,10 +171,10 @@ public class Screens {
 	 */
 	public void getToTheNextScreen(Topic myTopic, Lesson myLesson, Scene prevScene) {
 		lessonIndex++;
-		ArrayList<TextScribbles> contentAndQuestions = myLesson.getText();
+		ArrayList<TextRaw> contentAndQuestions = myLesson.getText();
 		// see if Lesson has next index
 		if (lessonIndex <= contentAndQuestions.size()) {
-			TextScribbles scribbles = contentAndQuestions.get(lessonIndex-1);
+			TextRaw scribbles = contentAndQuestions.get(lessonIndex-1);
 			if (scribbles instanceof Content) {
 				currentScene = contentPage(lessonIndex, myTopic, myLesson, prevScene, ((Content) scribbles).getText());
 				window.setScene(currentScene);
@@ -202,7 +197,7 @@ public class Screens {
 			lessonIndex = 0;
 		}
 		//this records last page for tracking progress
-		reader.tasukette(myTopic.getTopic(), myLesson.getLesson());
+		reader.recordLastPage(myTopic.getTopic(), myLesson.getLesson());
 	}
 
 	public void getToThePreviousScreen(Scene prevScene) {

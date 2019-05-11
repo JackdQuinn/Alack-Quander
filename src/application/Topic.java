@@ -4,10 +4,8 @@ import java.util.ArrayList;
 
 public class Topic {
 	
-	
 	private ArrayList<Lesson> lessons;
 	private String myTopic;
-
 	
 	public Topic(String myT) {
 		super();
@@ -16,48 +14,38 @@ public class Topic {
 		myTopic = myT;
 	}
 
-		
-		public ArrayList<Lesson> getLessons() {
+	public ArrayList<Lesson> getLessons() {
 		return lessons;
 	}
-
 
 	public void setLessons(ArrayList<Lesson> lessons) {
 		this.lessons = lessons;
 	}
 
-
 	public String getTopic() {
 		return myTopic;
 	}
-
 
 	public void setMyTopic(String myTopic) {
 		this.myTopic = myTopic;
 	}
 
-// check to see if lessonText already exists inside lessons, if not create a new
-		// Lesson and add to arraylist
-		public Lesson addLesson(String lessonText) 
-		{
-		Lesson myLesson;
-		myLesson = new Lesson(lessonText);
-		boolean exists = false;
-		
-		for (Lesson thisLesson : lessons) {
-			if (thisLesson.getLesson().equalsIgnoreCase(lessonText)) {
-				
-				myLesson = thisLesson;
-				exists = true;
-			}
+	//check to see if lessonText already exists inside lessons, if not then create new Lesson and add to arraylist
+	public Lesson addLesson(String lessonText) {
+	Lesson myLesson;
+	myLesson = new Lesson(lessonText);
+	boolean exists = false;
+	
+	for (Lesson thisLesson : lessons) {
+		if (thisLesson.getLesson().equalsIgnoreCase(lessonText)) {
+			myLesson = thisLesson;
+			exists = true;
 		}
-
-		
-		if(!exists) {
+	}
+	if(!exists) {
 		lessons.add(myLesson);
-		}
-		
-		return myLesson;
-}
+	}
+	return myLesson;
+	}
 		
 }

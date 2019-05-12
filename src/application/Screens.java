@@ -1,6 +1,7 @@
 package application;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -72,6 +73,7 @@ public class Screens {
 		lessonIndex = 0;
 		int r = 4;
 		int c = 3;
+		
 		for (Topic temp : javaTopics) {
 			Button btnTopic = createButton.topicButton(temp.getTopic());
 			//Brings you to list of lessons for the chosen Topic
@@ -135,6 +137,7 @@ public class Screens {
 		int c = 2;
 		ArrayList<Lesson> lessons = currentTopic.getLessons();
 			for (Lesson temp : lessons) {
+				System.out.println(temp.getLesson());
 				Button btnLesson = new Button(temp.getLesson());
 				btnLesson.setOnAction(e -> getToTheNextScreen(currentTopic, temp, lessonMenu)); // brings you to new page
 				btnLesson.getStyleClass().add("button-transparent");
@@ -174,18 +177,18 @@ public class Screens {
 		ArrayList<TextRaw> contentAndQuestions = myLesson.getText();
 		// see if Lesson has next index
 		if (lessonIndex <= contentAndQuestions.size()) {
-			TextRaw scribbles = contentAndQuestions.get(lessonIndex-1);
-			if (scribbles instanceof Content) {
-				currentScene = contentPage(lessonIndex, myTopic, myLesson, prevScene, ((Content) scribbles).getText());
+			TextRaw tr = contentAndQuestions.get(lessonIndex-1);
+			if (tr instanceof Content) {
+				currentScene = contentPage(lessonIndex, myTopic, myLesson, prevScene, ((Content) tr).getText());
 				window.setScene(currentScene);
 			}
-			else if(scribbles instanceof Question && ((Question) scribbles).getQuestionType().equalsIgnoreCase("FIB")){
-				currentScene = questionFIBpage(lessonIndex, myTopic, myLesson, prevScene, ((Question) scribbles));
+			else if(tr instanceof Question && ((Question) tr).getQuestionType().equalsIgnoreCase("FIB")){
+				currentScene = questionFIBpage(lessonIndex, myTopic, myLesson, prevScene, ((Question) tr));
 				window.setScene(currentScene);
 				window.setTitle(windowTitle);
 			}
 			else {
-				currentScene = questionPage(lessonIndex, myTopic, myLesson, prevScene, ((Question) scribbles));
+				currentScene = questionPage(lessonIndex, myTopic, myLesson, prevScene, ((Question) tr));
 				window.setScene(currentScene);
 				window.setTitle(windowTitle);
 			}
@@ -228,7 +231,8 @@ public class Screens {
 		GridPane top = createLayout.setGrid();
 		String lesson = myLesson.getLesson();
 	    Label title = createButton.title("Lesson: " + lesson);
-
+	    System.out.println(lesson);
+	    
 	    top.getChildren().add(title);
 	    GridPane.setConstraints(title, 8, 1);
 	    title.getStyleClass().add("label-title");

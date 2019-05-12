@@ -1,22 +1,21 @@
 package application;
 
 import static org.junit.jupiter.api.Assertions.*;
-
+import java.util.ArrayList;
 import org.junit.jupiter.api.Test;
 
-class StudyBuddyTester {
 
+class StudyBuddyTester {
+	
+	
 	@Test
 	void testLesson() {
-		Screens screen = new Screens();
-		Topic t = new Topic("Intro");
-		Topic myTopic = t;
-		Lesson l = new Lesson("Hello World");
-		Lesson myLesson = l;
-		//screen.getToTheNextScreen(myTopic, myLesson, prevScene);
+		Topic currentTopic = new Topic("Basics");
+		ArrayList<Lesson> lessons = currentTopic.getLessons();
+		Lesson temp = lessons.get(1);
+		System.out.println(temp.getLesson());
 		
-	//assertEquals(f1.getNumerator(), 19);
-		
+		assertEquals(l1, "Hello World");
 	}
 	
 

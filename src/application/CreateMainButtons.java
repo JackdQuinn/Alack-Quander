@@ -11,8 +11,12 @@ import javafx.scene.image.ImageView;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.TextAlignment;
 
+/*
+ * This class is used to create all buttons and labels
+ */
 public class CreateMainButtons {
 	
+	//next button uses right arrow graphic
 	public Button next() {
 		Button next = new Button();
 		FileInputStream inputstream = null;
@@ -31,6 +35,7 @@ public class CreateMainButtons {
 		return next;
 	}
 	
+	//previous button uses left arrow graphic
 	public Button prev() {
 		Button previous = new Button();
 		FileInputStream inputstream = null;
@@ -49,15 +54,10 @@ public class CreateMainButtons {
 		return previous;
 	}
 	
+	//submit button used on question pages
 	public Button submit() {
 		Button submit = new Button("Submit");
 		return submit;
-	}
-
-	public Label response() {
-		Label response = new Label();
-		response.setWrapText(true);
-		return response;
 	}
 	
 	public Label content(String input) {
@@ -71,7 +71,6 @@ public class CreateMainButtons {
 	public Label title(String input) {
 		Label content = new Label(input);
 		content.setWrapText(true);
-		//content.setAlignment(Pos.CENTER);
 		content.setMaxWidth(500);
 		return content;
 	}
@@ -83,6 +82,7 @@ public class CreateMainButtons {
 		return question;
 	}
 	
+	//circular buttons used for topics
 	public Button topicButton(String buttonName) {
 		Button button = new Button(buttonName);
 		button.setWrapText(true);
@@ -93,6 +93,8 @@ public class CreateMainButtons {
 		button.setTextAlignment(TextAlignment.CENTER);
 		return button;
 	}
+	
+	//short answer textFields have prompt text in light grey
 	public TextField shortAnswer() {
 		TextField content = new TextField("");
 		content.setPromptText("Write here...");

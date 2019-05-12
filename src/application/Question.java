@@ -28,6 +28,9 @@ public class Question extends TextRaw {
 		this.questionType = fixText(questionType);
 	}
 	
+	
+	//getters and setters
+	
 	public String getQuestionType() {
 		return questionType;
 	}
@@ -37,7 +40,6 @@ public class Question extends TextRaw {
 	}
 	
 	public String getQuestion() {
-		//views++;
 		return question;
 	}
 	
@@ -79,49 +81,3 @@ public class Question extends TextRaw {
 	
 }
 
-
-
-
-/*
- * @param views - tracks number of times a question is seen
- * @param correctCount - integer either positive or negative based on User performance on this question
- */
-//private int views, correctCount;
-
-
-//public int getViews() {
-//return views;
-//}
-//
-//public void setViews(int views) {
-//this.views = views;
-//}
-//
-//public int getcorrectCount() {
-//return correctCount;
-//}
-//
-//public void setcorrectCount(int correctCount) {
-//this.correctCount = correctCount;
-//}
-
-
-//public String checkAnswer (String userAnswer) {
-//if (answer.equals(userAnswer)) {
-//	correctCount++;
-//	return "Awesomesauce!";
-//}
-//else {
-//	correctCount--;
-//	return "Oh Noes!!! Try again! Ganbatte! Fighting!!! Buena Suerte! Bon Chance! Good Luck!!";
-//}
-//}
-
-//public void gotCorrect(boolean b) {
-//if (b) {
-//	correctCount++;
-//}else {
-//	correctCount--;
-//}
-////System.out.println("something" + correctCount);
-//}

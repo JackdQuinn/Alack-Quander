@@ -24,7 +24,7 @@ public class Screens {
 	Reader reader = new Reader();
 	String style = "Style.css";
 
-	//Topic Menu
+	//Create page for topic menu
 	public void goToTopics(Stage primaryStage) {
 
 		window = primaryStage;
@@ -72,8 +72,7 @@ public class Screens {
 		lessonIndex = 0;
 		int r = 4;
 		int c = 3;
-		String t = javaTopics.get(0).toString();
-		System.out.println(t);
+		
 		for (Topic temp : javaTopics) {
 			Button btnTopic = createButton.topicButton(temp.getTopic());
 			//Brings you to list of lessons for the chosen Topic
@@ -105,7 +104,7 @@ public class Screens {
 		window.show();
 	}
 
-	//Lesson menu
+	//Create page for lesson menu (each topic has a list of lessons)
 	public void goToLessons(Stage primaryStage, Topic currentTopic) {
 		window = primaryStage;
 		window.setTitle(windowTitle);
@@ -137,7 +136,6 @@ public class Screens {
 		int c = 2;
 		ArrayList<Lesson> lessons = currentTopic.getLessons();
 			for (Lesson temp : lessons) {
-				System.out.println(temp.getLesson());
 				Button btnLesson = new Button(temp.getLesson());
 				btnLesson.setOnAction(e -> getToTheNextScreen(currentTopic, temp, lessonMenu)); // brings you to new page
 				btnLesson.getStyleClass().add("button-transparent");
@@ -167,6 +165,7 @@ public class Screens {
 	}
 
 	/**
+	 * Method called to go to the next page
 	 * While lesson has a next Screen navigate to it, else return to the lesson menu
 	 * @param myTopic the topic from which the lessons are derived
 	 * @param myLesson the lesson we are referring to
@@ -199,16 +198,19 @@ public class Screens {
 			window.setTitle(windowTitle);
 			lessonIndex = 0;
 		}
+		
 		//this records last page for tracking progress
 		reader.recordLastPage(myTopic.getTopic(), myLesson.getLesson());
 	}
 
+	//Method called to go back a page
 	public void getToThePreviousScreen(Scene prevScene) {
 		lessonIndex--;
 		window.setScene(prevScene);
 	}
 
 	/**
+	 * Create page for content
 	 * @param lessonPageIndex-- used to navigate lessons arrayList
 	 * @param prevScene -- the previous scene
 	 * @param content   -- informative text to teach user how to (Java)
@@ -231,7 +233,6 @@ public class Screens {
 		GridPane top = createLayout.setGrid();
 		String lesson = myLesson.getLesson();
 	    Label title = createButton.title("Lesson: " + lesson);
-	    System.out.println(lesson);
 
 	    top.getChildren().add(title);
 	    GridPane.setConstraints(title, 8, 1);
@@ -241,7 +242,6 @@ public class Screens {
 		Label c = createButton.content(content);
 		GridPane.setConstraints(c, 2, 2);
 		center.getChildren().add(c);
-
 
 		Button n = createButton.next();
 		Button p = createButton.prev();
@@ -259,8 +259,8 @@ public class Screens {
 		return currentScene;
 	}
 
+	//Create page for multiple choice question
 	public Scene questionPage(int lessonPageIndex, Topic myTopic, Lesson myLesson, Scene prevScene, Question myQuestion) {
-
 		/*
 		 * Create panels for BorderPane
 		 * @param center is a GridPane in the center panel of BorderPane
@@ -298,7 +298,6 @@ public class Screens {
 		String incorrectMC3 = myQuestion.getWrong2();
 		String incorrectMC4 = myQuestion.getWrong3();
 		Button submit = createButton.submit();
-		Label response = createButton.content("");
 		Label question = createButton.question(myQuestion.getQuestion());
 		question.setWrapText(true);
 
@@ -363,8 +362,7 @@ public class Screens {
 		GridPane.setConstraints(answerRadio.get(2),2,6);
 		GridPane.setConstraints(answerRadio.get(3),2,7);
 		GridPane.setConstraints(submit,2,9);
-		GridPane.setConstraints(response,2,10);
-		center.getChildren().addAll(question, radio1, radio2, radio3, radio4, response, submit);
+		center.getChildren().addAll(question, radio1, radio2, radio3, radio4, submit);
 
 		/*
 		 * Add panels to BorderPane and set scene
@@ -374,6 +372,8 @@ public class Screens {
 		currentScene.getStylesheets().add(style);
 		return currentScene;
 	}
+	
+	//Create page for fill in the blank question
 	public Scene questionFIBpage(int lessonPageIndex, Topic myTopic, Lesson myLesson, Scene prevScene, Question myQuestion) {
 		/*
 		 * Create panels for BorderPane
@@ -395,7 +395,6 @@ public class Screens {
 	    top.getChildren().add(title);
 	    GridPane.setConstraints(title, 8, 1);
 	    title.getStyleClass().add("label-title");
-	    
 	    
 	    //Create button to bring you to previous/next page. Place in right panel.
 		Button n = createButton.next();
@@ -423,6 +422,7 @@ public class Screens {
 			GridPane.setConstraints(FIB1,0,(5+i*2));
 			GridPane.setConstraints(userText[i],0,6+i*2);
 		}
+		
 		submit.setOnAction(e -> {
 			//This if statement determines parameter for display method in AlertBox
 			boolean correct = true;
@@ -444,7 +444,6 @@ public class Screens {
 			});
 
 		center.getChildren().addAll(submit, q);
-		//GridPane.setConstraints(title,0,0);
 		GridPane.setConstraints(q,0,1);
 		GridPane.setConstraints(submit,0,10+i*2);
 

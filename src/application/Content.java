@@ -1,7 +1,7 @@
 package application;
 
 /**
- * This class is extends TextRaw
+ * This class is extending TextRaw
  * Takes in content from the ContentHash file and "fixes" the text to display multiple lines
  */
 public class Content extends TextRaw{

@@ -19,7 +19,6 @@ public class Reader {
 		javaTopics = new ArrayList<Topic>();
 		lessonIndex = 0; // offset for goToChosen topic increment call
 		
-		
 		//Used for tracking last page viewed (displayed on topic menu)
 		//scanner to read captainsLog.txt where last page viewed is written
 		File captainsLog = new File("captainsLog.txt");
@@ -48,7 +47,6 @@ public class Reader {
 			System.out.println("Error - File not found");
 			e.printStackTrace();
 		}
-		
 		
 		//Used for reading content, lessons, topics, questions
 		File file = new File("ContentHash.txt");
@@ -124,11 +122,10 @@ public class Reader {
 		}
 	}
 	
-	
 	//writes 10 on new line each time user answers a question correctly
 	public void xp() {
 		try {
-			FileWriter fw = new FileWriter("xp.txt", true);
+			FileWriter fw = new FileWriter("xp.txt", false);
 			fw.write("10\n");
 			fw.close();
 		}catch (IOException e) {
@@ -137,16 +134,18 @@ public class Reader {
 		}
 	}
 
-
 	public String getLastTopic() {
 		return lastTopic;
 	}
+	
 	public String getLastLesson() {
 		return lastLesson;
 	}
+	
 	public ArrayList<Topic> topics() {
 		return javaTopics;
 	}
+	
 	public int getXP() {
 		return XP;
 	}

@@ -178,11 +178,11 @@ public class Screens {
 			if (scribbles instanceof Content) {
 				currentScene = contentPage(lessonIndex, myTopic, myLesson, prevScene, ((Content) scribbles).getText());
 				window.setScene(currentScene);
-			}else if(scribbles instanceof Question && ((Question) scribbles).getQuestionType().equalsIgnoreCase("FIB")){
+			}
+			else if(scribbles instanceof Question && ((Question) scribbles).getQuestionType().equalsIgnoreCase("FIB")){
 				currentScene = questionFIBpage(lessonIndex, myTopic, myLesson, prevScene, ((Question) scribbles));
 				window.setScene(currentScene);
 				window.setTitle(windowTitle);
-
 			}
 			else {
 				currentScene = questionPage(lessonIndex, myTopic, myLesson, prevScene, ((Question) scribbles));
@@ -206,7 +206,6 @@ public class Screens {
 	}
 
 	/**
-	 *
 	 * @param lessonPageIndex-- used to navigate lessons arrayList
 	 * @param prevScene -- the previous scene
 	 * @param content   -- informative text to teach user how to (Java)
@@ -372,7 +371,6 @@ public class Screens {
 		return currentScene;
 	}
 	public Scene questionFIBpage(int lessonPageIndex, Topic myTopic, Lesson myLesson, Scene prevScene, Question myQuestion) {
-		
 		/*
 		 * Create panels for BorderPane
 		 * @param center is a GridPane in the center panel of BorderPane
@@ -394,7 +392,6 @@ public class Screens {
 	    GridPane.setConstraints(title, 8, 1);
 	    title.getStyleClass().add("label-title");
 	    
-
 	    //Create button to bring you to previous/next page. Place in right panel.
 		Button n = createButton.next();
 		Button p = createButton.prev();
@@ -411,7 +408,6 @@ public class Screens {
 		String[] correctFIB = myQuestion.getAnswer().split(",");
 		TextField[] userText = new TextField[correctFIB.length];
 		Label q = createButton.content(myQuestion.getQuestion());
-		
 		
 		int i;
 		for(i = 0; i < correctFIB.length; i++) {

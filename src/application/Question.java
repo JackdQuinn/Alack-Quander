@@ -1,18 +1,12 @@
 package application;
 
 /**
- * This class is extends TextRaw
+ * This class is extending TextRaw
  * Takes in questions from the ContentHash file and "fixes" the text to display multiple lines
  */
 public class Question extends TextRaw {
 	
 	private String questionType, question, answer, wrong1, wrong2, wrong3;
-
-	/*
-	 * @param views - tracks number of times a question is seen
-	 * @param correctCount - integer either positive or negative based on User performance on this question
-	 */
-	private int views, correctCount;
 
 	/**
 	 * Constructor: 	
@@ -25,18 +19,13 @@ public class Question extends TextRaw {
 	 * @param lesson
 	 */
 	public Question(String questionType, String question, String answer, String wrong1, String wrong2, String wrong3) {
-		
 		super();
-		
 		this.question = fixText(question);
 		this.answer = fixText(answer);
 		this.wrong1 = fixText(wrong1);
 		this.wrong2 = fixText(wrong2);
 		this.wrong3 = fixText(wrong3);
 		this.questionType = fixText(questionType);
-		
-		views = 0;
-		correctCount = 0;
 	}
 	
 	public String getQuestionType() {
@@ -48,7 +37,7 @@ public class Question extends TextRaw {
 	}
 	
 	public String getQuestion() {
-		views++;
+		//views++;
 		return question;
 	}
 	
@@ -89,6 +78,15 @@ public class Question extends TextRaw {
 	}
 	
 }
+
+
+
+
+/*
+ * @param views - tracks number of times a question is seen
+ * @param correctCount - integer either positive or negative based on User performance on this question
+ */
+//private int views, correctCount;
 
 
 //public int getViews() {

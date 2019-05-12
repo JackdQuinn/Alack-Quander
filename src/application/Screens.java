@@ -2,7 +2,6 @@ package application;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -377,7 +376,7 @@ public class Screens {
 	    right.getChildren().add(n);
 	    left.getChildren().add(p);
 
-		int numberOfBlanks = 1;
+//		int numberOfBlanks = 1;
 		String[] correctFIB = myQuestion.getAnswer().split(",");
 		TextField[] userText = new TextField[correctFIB.length];
 

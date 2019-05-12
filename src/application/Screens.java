@@ -395,7 +395,8 @@ public class Screens {
 	    top.getChildren().add(title);
 	    GridPane.setConstraints(title, 8, 1);
 	    title.getStyleClass().add("label-title");
-
+	    
+	    
 	    //Create button to bring you to previous/next page. Place in right panel.
 		Button n = createButton.next();
 		Button p = createButton.prev();
@@ -443,7 +444,7 @@ public class Screens {
 			});
 
 		center.getChildren().addAll(submit, q);
-		GridPane.setConstraints(title,0,0);
+		//GridPane.setConstraints(title,0,0);
 		GridPane.setConstraints(q,0,1);
 		GridPane.setConstraints(submit,0,10+i*2);
 

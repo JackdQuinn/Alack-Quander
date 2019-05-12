@@ -5,10 +5,11 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 class QuestionTest extends Question {
+	Question q = new Question("MC", "Which way is up?", "answer", "wrong1", "wrong1", "wrong1");
 
 	@Test
-	void testGetQuestion() {
-		fail("Not yet implemented");
+	void testGetQuestion(String String) {
+		
 	}
 
 	@Test

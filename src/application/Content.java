@@ -1,14 +1,18 @@
 package application;
 
-public class Content extends TextScribbles{
+/**
+ * This class is extending TextRaw
+ * Takes in content from the ContentHash file and "fixes" the text to display multiple lines
+ */
+public class Content extends TextRaw{
+	
 	private String text;
 
 	public Content(String text) {
 		super();
-		this.text = iFeelPretty(text);
+		this.text = fixText(text);
 	}
-	
-	
+
 	public String getText() {
 		return text;
 	}

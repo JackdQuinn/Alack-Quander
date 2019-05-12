@@ -48,11 +48,18 @@
 	-fx-font-weight: bold;
 	-fx-font-size: 13pt;
 }
+
 #round-button {
 	-fx-background-radius: 9;
 	-fx-text-fill: #ffffff;
-	-fx-font-size: 9.5pt;
+	-fx-font-size: 10pt;
 	-fx-font-weight: bold;
 }
-
-
+.label-titleSmall {
+	-fx-text-fill: #ffffff;
+	-fx-font-size: 10.5pt;
+}
+.label-left {
+	-fx-text-fill: #ffffff;
+	-fx-font-size: 9pt;
+}

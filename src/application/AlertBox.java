@@ -24,6 +24,7 @@ public class AlertBox {
 		Button closeButton = new Button("Continue");
 		closeButton.setOnAction(e -> window.close());
 
+		
 		//Set style and width/height
 		String windowStyle = "Style.css";
 		window.setMinWidth(200);;

@@ -125,7 +125,7 @@ public class Reader {
 	//writes 10 on new line each time user answers a question correctly
 	public void xp() {
 		try {
-			FileWriter fw = new FileWriter("xp.txt", false);
+			FileWriter fw = new FileWriter("xp.txt", true);
 			fw.write("10\n");
 			fw.close();
 		}catch (IOException e) {

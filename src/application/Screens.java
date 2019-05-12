@@ -1,7 +1,6 @@
 package application;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -73,7 +72,8 @@ public class Screens {
 		lessonIndex = 0;
 		int r = 4;
 		int c = 3;
-		
+		String t = javaTopics.get(0).toString();
+		System.out.println(t);
 		for (Topic temp : javaTopics) {
 			Button btnTopic = createButton.topicButton(temp.getTopic());
 			//Brings you to list of lessons for the chosen Topic

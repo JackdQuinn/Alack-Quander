@@ -12,5 +12,6 @@ class ContentTest {
 		assertEquals(c.getText(),"ALEXANDRA\nJACK");
 	}
 
+	
 
 }

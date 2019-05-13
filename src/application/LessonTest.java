@@ -7,8 +7,9 @@ import org.junit.jupiter.api.Test;
 class LessonTest {
 
 	@Test
-	void test() {
-		fail("Not yet implemented");
+	void testLesson() {
+		Lesson l = new Lesson("Intro");
+		assertEquals(l.getLesson(), "Intro");
 	}
 
 }

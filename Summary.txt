@@ -1,0 +1,33 @@
+In addition, also submit a 1 page summary.txt file – this should contain the name and description of your project (4-5 sentences), the actual work breakdown (who did what), and the link to your github repository.
+
+Project: Alack Quander’s 591 Study Guide
+
+Team Members: Alexandra Orlander, Jack Quinn
+
+GitHub Repository: https://github.com/JackdQuinn/Alack-Quander
+
+Project idea along with a short description
+
+The goal of our project was to create a study guide to help students learn the basics of java. 
+Users have the opportunity to read java lessons then answer questions, solve problems, write code, and read code to earn experience points.
+
+The application is designed around short and sweet lessons that allow the user to easily spend 1 to 5 minutes learning a single concept.  Then when they reopen the application we’ll tell them where they left off and how many points they have earned.
+
+How the work was divided up
+Jack handled the data structures and data design including wrangling and formatting of instructional content and quiz problems found in the contentHash.txt.
+
+Alexandra was our JavaFX expert, learning the library and providing example implementations for Jack.
+
+Jack took this base code and wrote the methods to dynamically build each page/screen based on the data read in from the contentHash.txt file.
+Example: Alexandra provided an implementation of a previous and next button. Jack then used this implementation to write the getToTheNextScreen and getToThePrevScene methods.
+
+Jack specific code:
+Content.java, Lesson.java, Question.java, Reader.java, TextScribbles.java, Topic.java
+
+Alexandra handled the graphical design and implementation of the project’s appearance.  
+Alexandra specific code:
+Style.css, application.css, alertbox.java, CreateMainButtons.java, CreateMainLayout.java, main.java
+
+In general we strived to split the project based on Front end and Back end, when we got stuck we asked each other for suggestions, and if one of us couldn’t figure something out, often the other one could.
+
+Code shared as described above: MultipleChoice.java, Screens.java

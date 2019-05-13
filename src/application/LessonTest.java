@@ -4,10 +4,10 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-class ScreensTest {
+class LessonTest {
 
 	@Test
-	void testGetToTheNextScreen() {
+	void test() {
 		fail("Not yet implemented");
 	}
 

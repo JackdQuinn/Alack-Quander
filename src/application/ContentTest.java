@@ -1,24 +1,16 @@
 package application;
 
 import static org.junit.jupiter.api.Assertions.*;
-
 import org.junit.jupiter.api.Test;
 
 class ContentTest {
-
+	
+	Content c = new Content("ALEXANDRA\nJACK");
+	
 	@Test
 	void testContent() {
-		fail("Not yet implemented");
+		assertEquals(c.getText(),"ALEXANDRA\nJACK");
 	}
 
-	@Test
-	void testGetText() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	void testSetText() {
-		fail("Not yet implemented");
-	}
 
 }

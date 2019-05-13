@@ -4,11 +4,10 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-class TextRawTest extends TextRaw {
+class ScreensTest {
 
 	@Test
-	void testFixText() {
-
+	void testGetToTheNextScreen() {
 		fail("Not yet implemented");
 	}
 
